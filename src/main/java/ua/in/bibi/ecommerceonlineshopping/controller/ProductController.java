@@ -2,9 +2,7 @@ package ua.in.bibi.ecommerceonlineshopping.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ua.in.bibi.ecommerceonlineshopping.dto.request.ProductFilterRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.ProductRequest;
-import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.ProductResponse;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
 import ua.in.bibi.ecommerceonlineshopping.service.ProductService;
