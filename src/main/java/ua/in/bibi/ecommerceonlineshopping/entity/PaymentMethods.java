@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Setter
 @Getter
@@ -20,6 +21,7 @@ public class PaymentMethods {
 
     private String module;// not null
 
+    @NotBlank(message = "PaymentMethod name must not be empty")
     private String name;// not null
 
     private String description;// not null

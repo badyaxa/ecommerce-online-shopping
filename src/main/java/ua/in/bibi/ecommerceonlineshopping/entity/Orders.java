@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Setter
 @Getter
@@ -34,6 +35,12 @@ public class Orders {
 
     private Boolean closed;// not null default 1
 
+
+
+//@Temporal — применяется к полям или свойствам с типом java.util.Date и java.util.Calendar. Например, если в БД время сохраняется как sql.Date, то чтобы использовать дату из java.util.Date указываем эту аннотацию.
+//@Temporal(TemporalType.DATE)
+//@Column(name = "BIRTH_DATE")
+
     //    private Date datetime;
     @OneToOne
     private Users user;// not null
@@ -41,6 +48,8 @@ public class Orders {
     private String name;// not null
     private String address;// not null
     private String phone;// not null
+
+    @Email
     private String email;// not null
     private String comment;// not null
 //    private Integer status;// not null default 0

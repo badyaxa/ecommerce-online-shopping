@@ -5,9 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
 
 @Setter
 @Getter
@@ -22,6 +20,7 @@ public class Delivery {
     private Long id;
 
     @Column(unique = true)
+    @NotBlank(message = "Delivery name must not be empty")
     private String name;// not null
 
 

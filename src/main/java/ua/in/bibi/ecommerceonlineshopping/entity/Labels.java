@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Setter
 @Getter
@@ -19,6 +20,7 @@ public class Labels {
     private Long id;
 
     @Column(unique = true)
+    @NotBlank(message = "Label name must not be empty")
     private String name;// not null
 
     private String color;// not null

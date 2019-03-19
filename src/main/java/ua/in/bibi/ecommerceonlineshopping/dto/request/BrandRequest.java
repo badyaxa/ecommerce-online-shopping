@@ -8,5 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BrandRequest {
+
     private String name;
+
 }

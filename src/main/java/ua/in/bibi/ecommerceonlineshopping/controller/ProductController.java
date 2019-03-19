@@ -11,40 +11,51 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/product")
+//@RequestMapping("/product")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
 //    create
-    @PostMapping
+    @PostMapping("/product")
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
     public ProductResponse create(@RequestBody ProductRequest productRequest) throws WrongInputException {
         return productService.create(productRequest);
     }
 
-//    read
-    @GetMapping
+//    read  //in PublicController
+//    @GetMapping
+    @GetMapping("/products")
     public List<ProductResponse> findAll() {
         return productService.findAll();
     }
 
 //    update
-    @PutMapping
+    @PutMapping("/product")
+//    @PutMapping
     public ProductResponse update(@RequestParam Long id, @RequestBody ProductRequest productRequest) throws WrongInputException {
         return productService.update(id, productRequest);
     }
 
 //    delete
-    @DeleteMapping
+    @DeleteMapping("/product")
+//    @DeleteMapping
     public void delete(@RequestParam Long id) throws WrongInputException {
         productService.delete(id);
     }
 
+//    @GetMapping("/title/{bookTitle}")
+//    public List findByTitle(@PathVariable String bookTitle) {
+//        return bookRepository.findByTitle(bookTitle);
+//    }
 
-
-
-
+//    @GetMapping("/{id}")
+//    public Book findOne(@PathVariable Long id) {
+//        return bookRepository.findById(id)
+//                .orElseThrow(BookNotFoundException::new);
+//    }
 
 
 //    @PostMapping("/filter")

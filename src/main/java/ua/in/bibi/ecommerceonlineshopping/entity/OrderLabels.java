@@ -19,9 +19,9 @@ public class OrderLabels {
     private Long id;
 
     @OneToOne
-    private Orders order;
+    private Orders orders;
 
     @OneToOne
-    private Labels label;
+    private Labels labels;
 
 }

@@ -5,8 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.Constraint;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.*;
@@ -21,24 +19,39 @@ public class Brands {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(unique = true)
-    @NotNull
+    @Column(name = "name", nullable = false, unique = true)
+//    @NotNull
+    @NotBlank(message = "Brand name must not be empty")
     @Size(min = 3, max = 50)
     private String name;// not null
 
     //    @Qualifier( "id been") // использование уникального для Spring.
+//  @OneToMany(mappedBy=»customer», orphanRemoval=»true»)  //orphanRemoval — позволяет удалять объекты сироты. При удалении родительского объекта удаляется и дочерний.
     @OneToMany(mappedBy = "brand")
 //    (fetch = FetchType.LAZY) //для лістів
 //    (fetch = FetchType.EAGER) //для одиночних
+//    @OrderBy("firstName asc") //указание сортировки
     private List<Products> listProductsByBrand = new ArrayList<>();
 
+    @Column(name = "url")
     private String url;// not null
-    private String meta_title;// not null
-    private String meta_keywords;// not null
-    private String meta_description;// not null
+
+    @Column(name = "meta_title")
+    private String metaTitle;// not null
+
+    @Column(name = "meta_keywords")
+    private String metaKeywords;// not null
+
+    @Column(name = "meta_description")
+    private String metaDescription;// not null
+
+    @Column(name = "description")
     private String description;// not null
+
+    @Column(name = "image")
     private String image;// not null
 
 }

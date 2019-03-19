@@ -3,6 +3,7 @@ package ua.in.bibi.ecommerceonlineshopping.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.ProductRequest;
+import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.ProductResponse;
 import ua.in.bibi.ecommerceonlineshopping.entity.Products;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
@@ -64,10 +65,6 @@ public class ProductService {
 
 
 
-
-
-
-
 //    public DataResponse<ProductResponse> findByFilter(ProductFilterRequest filterRequest) {
 //        Page<Product> page = productRepository.findAll(
 //                new ProductSpecification(filterRequest),
@@ -76,7 +73,7 @@ public class ProductService {
 //        return new DataResponse<>(page.get().map(ProductResponse::new).collect(Collectors.toList()), page.getTotalPages(), page.getTotalElements());
 //
 //    }
-//
+
 //    public DataResponse<ProductResponse> findAllByBrandId(Long brandId, PaginationRequest paginationRequest) throws WrongInputException {
 //        Brand brand = brandService.findOne(brandId);
 //        Page<Product> byBrand = productRepository.findAllByBrand(brand, paginationRequest.mapToPageRequest());

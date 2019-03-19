@@ -1,19 +1,17 @@
 package ua.in.bibi.ecommerceonlineshopping.dto.response;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ua.in.bibi.ecommerceonlineshopping.entity.Products;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ProductResponse {
-
     private Long id;
-
     private String brandName;
-
     private String name;
-
 
 
 //    private Integer year;

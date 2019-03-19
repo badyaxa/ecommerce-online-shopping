@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class Features {
     private Long id;
 
     @Column(unique = true)
+    @NotBlank(message = "Features name must not be empty")
     private String name;// not null
 
 
