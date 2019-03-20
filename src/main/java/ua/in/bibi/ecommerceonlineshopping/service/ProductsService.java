@@ -43,7 +43,7 @@ public class ProductsService {
         Products product = new Products();
         product.setName(productRequest.getName());
         product.setBrand(brandsService.findOne(productRequest.getBrandId()));
-//        product.setCategory(categoriesService.getPetType());
+        product.setCategory(categoriesService.findOne(productRequest.getCategoryId()));
 //        productsCategoriesRepository.getOne()
         return new ProductsResponse(productsRepository.save(product));
 

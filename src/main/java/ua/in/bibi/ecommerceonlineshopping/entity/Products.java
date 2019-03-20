@@ -51,9 +51,9 @@ public class Products {
 
 //    @Autowired
 //@Transient   // — указывает, что свойство не нужно записывать.
-               // Значения под этой аннотацией не записываются
-               // в базу данных (так же не участвуют в сериализации).
-               // static и final переменные экземпляра всегда transient.
+    // Значения под этой аннотацией не записываются
+    // в базу данных (так же не участвуют в сериализации).
+    // static и final переменные экземпляра всегда transient.
 
     //private String annotation;// not null
 
@@ -65,8 +65,9 @@ public class Products {
 //    private String meta_description;// not null
 
 
-    @ManyToMany(mappedBy = "products")
-    private List<Categories> categories = new ArrayList<>();
+    //    @ManyToMany(mappedBy = "products")
+    @ManyToOne
+    private Categories category;
 
 
 }

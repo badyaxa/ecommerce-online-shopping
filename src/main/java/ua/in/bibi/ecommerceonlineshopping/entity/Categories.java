@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +45,14 @@ public class Categories {
 
 //    @NotNull
 
-//    @ManyToMany
+    //    @ManyToMany
 //    private List<Features> features = new ArrayList<>();
 //
-@ManyToMany
-private List<Products> products = new ArrayList<>();
+//@ManyToMany
+    @OneToMany(mappedBy = "category")
+//    (fetch = FetchType.LAZY) //для лістів
+//    (fetch = FetchType.EAGER) //для одиночних
+//    @OrderBy("firstName asc") //указание сортировки
+    private List<Products> listProductsByCategory = new ArrayList<>();
 
 }
