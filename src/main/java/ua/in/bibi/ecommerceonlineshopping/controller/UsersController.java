@@ -12,33 +12,36 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-//@RequestMapping("/user")
+@RequestMapping("/user")
 public class UsersController {
     @Autowired
     UserService userService;
 
     //    create
-    @PostMapping("/user")
+//    @PostMapping("/user")
+    @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
     public UserResponse create(@RequestBody UserRequest userRequest) throws WrongInputException {
         return userService.create(userRequest);
     }
 
     //    read
-//    @GetMapping
-    @GetMapping("/users")
+//    @GetMapping("/users")
+    @GetMapping
     public List<UserResponse> findAll() {
         return userService.findAll();
     }
 
     //    update
-    @PutMapping("/user")
+//    @PutMapping("/user")
+    @PutMapping
     public UserResponse update(@RequestParam Long id, @RequestBody UserRequest userRequest) throws WrongInputException {
         return userService.update(id, userRequest);
     }
 
     //    delete
-    @DeleteMapping("/user")
+//    @DeleteMapping("/user")
+    @DeleteMapping
     public void delete(@RequestParam Long id) throws WrongInputException {
         userService.delete(id);
     }

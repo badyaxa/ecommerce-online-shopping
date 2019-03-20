@@ -13,33 +13,36 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-//@RequestMapping("/brand")
+@RequestMapping("/brand")
 public class BrandController {
 
     @Autowired
     private BrandService brandService;
 
 //    create
-    @PostMapping("/brand")
+//    PostMapping("/brand")
+@PostMapping
     public BrandResponse create(@RequestBody BrandRequest brandRequest) {
         return brandService.create(brandRequest);
     }
 
-//    read  //in PublicController
-//    @GetMapping
-    @GetMapping("/brands")
+    //    read
+//    @GetMapping("/brands")
+    @GetMapping
     public List<BrandResponse> findAll() {
         return brandService.findAll();
     }
 
 //    update
-    @PutMapping("/brand")
+//    @PutMapping("/brand")
+@PutMapping
     public BrandResponse update(@RequestBody BrandRequest brandRequest, @RequestParam Long id) throws WrongInputException {
         return brandService.update(brandRequest, id);
     }
 
 //    delete
-    @DeleteMapping("/brand")
+//    @DeleteMapping("/brand")
+@DeleteMapping
     public void delete(@RequestParam Long id) throws WrongInputException {
         brandService.delete(id);
     }

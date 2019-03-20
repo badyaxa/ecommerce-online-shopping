@@ -13,33 +13,36 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-//@RequestMapping("/category")
+@RequestMapping("/category")
 public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
     //    create
-    @PostMapping("/category")
+//    @PostMapping("/category")
+    @PostMapping
     public CategoryResponse create(@RequestBody CategoryRequest categoryRequest) {
         return categoryService.create(categoryRequest);
     }
 
     //    read  //in PublicController
-//    @GetMapping
-    @GetMapping("/categories")
+//    @GetMapping("/categories")
+    @GetMapping
     public List<CategoryResponse> findAll() {
         return categoryService.findAll();
     }
 
     //    update
-    @PutMapping("/category")
+//    @PutMapping("/category")
+    @PutMapping
     public CategoryResponse update(@RequestBody CategoryRequest categoryRequest, @RequestParam Long id) throws WrongInputException {
         return categoryService.update(categoryRequest, id);
     }
 
     //    delete
-    @DeleteMapping("/category")
+//    @DeleteMapping("/category")
+    @DeleteMapping
     public void delete(@RequestParam Long id) throws WrongInputException {
         categoryService.delete(id);
     }

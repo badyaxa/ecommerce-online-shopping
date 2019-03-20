@@ -50,15 +50,15 @@ public class PublicController {
         return "admin";
     }
 
-    @GetMapping("/brand")
-     public String crudBrand() {
-        return "brand";
-    }
+//    @GetMapping("/brand")
+//     public String crudBrand() {
+//        return "brand";
+//    }
 
-    @GetMapping("/category")
-     public String crudCategory() {
-        return "category";
-    }
+//    @GetMapping("/category")
+//     public String crudCategory() {
+//        return "category";
+//    }
 
     @GetMapping("/contactus")
      public String contactus() {
@@ -80,10 +80,10 @@ public class PublicController {
         return "newsletter";
     }
 
-    @GetMapping("/product")
-     public String crudProduct() {
-        return "product";
-    }
+//    @GetMapping("/product")
+//     public String crudProduct() {
+//        return "product";
+//    }
 
 
 //    @GetMapping("/brands")

@@ -11,37 +11,37 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-//@RequestMapping("/product")
+@RequestMapping("/product")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
 //    create
-    @PostMapping("/product")
-//    @PostMapping
+//    @PostMapping("/product")
 //    @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponse create(@RequestBody ProductRequest productRequest) throws WrongInputException {
+@PostMapping
+public ProductResponse create(@RequestBody ProductRequest productRequest) throws WrongInputException {
         return productService.create(productRequest);
     }
 
 //    read  //in PublicController
-//    @GetMapping
-    @GetMapping("/products")
+//    @GetMapping("/products")
+@GetMapping
     public List<ProductResponse> findAll() {
         return productService.findAll();
     }
 
 //    update
-    @PutMapping("/product")
-//    @PutMapping
+//    @PutMapping("/product")
+@PutMapping
     public ProductResponse update(@RequestParam Long id, @RequestBody ProductRequest productRequest) throws WrongInputException {
         return productService.update(id, productRequest);
     }
 
 //    delete
-    @DeleteMapping("/product")
-//    @DeleteMapping
+//    @DeleteMapping("/product")
+@DeleteMapping
     public void delete(@RequestParam Long id) throws WrongInputException {
         productService.delete(id);
     }
