@@ -60,7 +60,7 @@ public class CategoriesController {
 //            System.out.println("Get brand by id : " + id);
             return categoriesService.findOneById(id);
         } else {
-            throw new IllegalArgumentException("BRAND id must not be less than ONE!");
+            throw new IllegalArgumentException("ID must not be less than ONE!");
         }
     }
 
@@ -71,7 +71,7 @@ public class CategoriesController {
         if (id > 0) {
             return categoriesService.update(categoriesRequest, id);
         } else {
-            throw new IllegalArgumentException("CATEGORY id must not be less than ONE!");
+            throw new IllegalArgumentException("ID must not be less than ONE!");
         }
     }
 
@@ -83,7 +83,7 @@ public class CategoriesController {
         if (id > 0) {
             categoriesService.delete(id);
         } else {
-            throw new IllegalArgumentException("CATEGORY id must not be less than ONE!");
+            throw new IllegalArgumentException("ID must not be less than ONE!");
         }
     }
 

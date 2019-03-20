@@ -65,8 +65,8 @@ public class Products {
 //    private String meta_description;// not null
 
 
-//    @ManyToMany
-//    private List<Categories> categories = new ArrayList<>();
+    @ManyToMany(mappedBy = "products")
+    private List<Categories> categories = new ArrayList<>();
 
 
 }

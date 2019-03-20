@@ -10,6 +10,8 @@ import ua.in.bibi.ecommerceonlineshopping.dto.request.BrandsRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.BrandsResponse;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.entity.Brands;
+import ua.in.bibi.ecommerceonlineshopping.entity.Categories;
+import ua.in.bibi.ecommerceonlineshopping.entity.Products;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
 import ua.in.bibi.ecommerceonlineshopping.repository.BrandsRepository;
 import ua.in.bibi.ecommerceonlineshopping.specification.BrandsSpecification;
@@ -31,14 +33,14 @@ public class BrandsService {
     }
 
 
-//    read
-public List<BrandsResponse> findAll() {
-    return brandsRepository
-            .findAll()
-            .stream()
-            .map(BrandsResponse::new)
-            .collect(Collectors.toList());
-}
+    //    read
+    public List<BrandsResponse> findAll() {
+        return brandsRepository
+                .findAll()
+                .stream()
+                .map(BrandsResponse::new)
+                .collect(Collectors.toList());
+    }
 
     public DataResponse<BrandsResponse> findAll(String value, Integer page, Integer size, String fieldName, Sort.Direction direction) {
         Sort sort = Sort.by(direction, fieldName);

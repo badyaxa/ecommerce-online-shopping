@@ -49,7 +49,7 @@ public class Categories {
 //    @ManyToMany
 //    private List<Features> features = new ArrayList<>();
 //
-//    @ManyToMany
-//    private List<Products> products = new ArrayList<>();
+@ManyToMany
+private List<Products> products = new ArrayList<>();
 
 }

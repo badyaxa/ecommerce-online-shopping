@@ -1,14 +1,22 @@
 package ua.in.bibi.ecommerceonlineshopping.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.ProductsRequest;
+import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.ProductsResponse;
 import ua.in.bibi.ecommerceonlineshopping.entity.Products;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
+import ua.in.bibi.ecommerceonlineshopping.repository.ProductsCategoriesRepository;
 import ua.in.bibi.ecommerceonlineshopping.repository.ProductsRepository;
+import ua.in.bibi.ecommerceonlineshopping.specification.ProductsSpecification;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +24,12 @@ public class ProductsService {
 
     @Autowired
     private ProductsRepository productsRepository;
+
+    @Autowired
+    private ProductsCategoriesRepository productsCategoriesRepository;
+
+//    @Autowired
+//    private ProductsCategoriesService productsCategoriesService;
 
     @Autowired
     private CategoriesService categoriesService;
@@ -28,8 +42,9 @@ public class ProductsService {
     public ProductsResponse create(ProductsRequest productRequest) throws WrongInputException {
         Products product = new Products();
         product.setName(productRequest.getName());
-        product.setBrand(brandsService.findOne(productRequest.getIdBrand()));
+        product.setBrand(brandsService.findOne(productRequest.getBrandId()));
 //        product.setCategory(categoriesService.getPetType());
+//        productsCategoriesRepository.getOne()
         return new ProductsResponse(productsRepository.save(product));
 
 //        return new ProductsResponse(productRequestToProducts(null, productRequest));
@@ -43,6 +58,19 @@ public class ProductsService {
                 .stream()
                 .map(ProductsResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    public DataResponse<ProductsResponse> findAll(String value, Integer page, Integer size, String fieldName, Sort.Direction direction) {
+        Sort sort = Sort.by(direction, fieldName);
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
+        Page<Products> productsPage;
+        if (value != null && !value.equals("")) {
+            ProductsSpecification specification = new ProductsSpecification(value);
+            productsPage = productsRepository.findAll(specification, pageRequest);
+        } else {
+            productsPage = productsRepository.findAll(pageRequest);
+        }
+        return new DataResponse<ProductsResponse>(productsPage.stream().map(ProductsResponse::new).collect(Collectors.toList()), productsPage);
     }
 
 
@@ -62,13 +90,23 @@ public class ProductsService {
         return productsRepository.findById(id).orElseThrow(() -> new WrongInputException("Products with id " + id + " not exists"));
     }
 
+    @Transactional
+    public ProductsResponse findOneById(Long id) {
+        Optional<Products> productsOptional = productsRepository.findById(id);
+        if (productsOptional.isPresent()) {
+            return new ProductsResponse(productsOptional.get());
+        } else {
+            throw new IllegalArgumentException("Products with id " + id + " not found");
+        }
+    }
+
 
     private Products productRequestToProducts(Products product, ProductsRequest request) throws WrongInputException {
         if (product == null) {
             product = new Products();
         }
         product.setName(request.getName());
-        product.setBrand(brandsService.findOne(request.getIdBrand()));
+        product.setBrand(brandsService.findOne(request.getBrandId()));
 //        product.setVolume(request.getVolume());
 //        product.setYear(request.getYear());
         return productsRepository.save(product);
@@ -118,5 +156,5 @@ public class ProductsService {
 //        return new DataResponse<>(byBrand.get().map(ProductsResponse::new).collect(Collectors.toList()),
 //                byBrand.getTotalPages(), byBrand.getTotalElements());
 //    }
-}
 
+}

@@ -9,9 +9,14 @@ import ua.in.bibi.ecommerceonlineshopping.entity.Products;
 @Setter
 @NoArgsConstructor
 public class ProductsResponse {
+
     private Long id;
-    private String brandName;
+
     private String name;
+
+    private String brandName;
+
+    private String categoryName;
 
 
 //    private Integer year;
@@ -28,8 +33,9 @@ public class ProductsResponse {
 
     public ProductsResponse(Products product) {
         id = product.getId();
-        brandName = product.getBrand().getName();
         name = product.getName();
+        brandName = product.getBrand().getName();
+//        categoryName =  ;
 //        year = product.getYear();
 //        volume = product.getVolume();
     }

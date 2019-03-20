@@ -10,8 +10,10 @@ import ua.in.bibi.ecommerceonlineshopping.dto.request.CategoriesRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.CategoriesResponse;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.entity.Categories;
+import ua.in.bibi.ecommerceonlineshopping.entity.Products;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
 import ua.in.bibi.ecommerceonlineshopping.repository.CategoriesRepository;
+import ua.in.bibi.ecommerceonlineshopping.repository.ProductsRepository;
 import ua.in.bibi.ecommerceonlineshopping.specification.CategoriesSpecification;
 
 import java.util.List;
@@ -23,6 +25,12 @@ public class CategoriesService {
 
     @Autowired
     private CategoriesRepository categoriesRepository;
+
+    @Autowired
+    private ProductsRepository productsRepository;
+
+    @Autowired
+    private ProductsService productsService;
 
     //    create
     public CategoriesResponse create(CategoriesRequest request) {

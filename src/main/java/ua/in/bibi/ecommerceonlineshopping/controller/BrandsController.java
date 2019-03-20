@@ -21,28 +21,28 @@ public class BrandsController {
     private BrandsService brandsService;
 
 
-//    create
+    //    create
 //    PostMapping("/brand")
-@PostMapping
-public BrandsResponse create(@RequestBody @Valid BrandsRequest brandsRequest) {
-    return brandsService.create(brandsRequest);
+    @PostMapping
+    public BrandsResponse create(@RequestBody @Valid BrandsRequest brandsRequest) {
+        return brandsService.create(brandsRequest);
     }
 
-//    read
+    //    read
 //    @GetMapping
-@GetMapping("/all")
-public List<BrandsResponse> findAll() {
+    @GetMapping("/all")
+    public List<BrandsResponse> findAll() {
 //        System.out.println("GET ALL BRANDS");
-    return brandsService.findAll();
-}
+        return brandsService.findAll();
+    }
 
     @GetMapping
     public DataResponse<BrandsResponse> getBrandsSortPaginationFindValue(
             @RequestParam(required = false) String value,
-                                                   @RequestParam Integer page,
-                                                   @RequestParam Integer size,
-                                                   @RequestParam String sortFieldName,
-                                                   @RequestParam Sort.Direction direction) {
+            @RequestParam Integer page,
+            @RequestParam Integer size,
+            @RequestParam String sortFieldName,
+            @RequestParam Sort.Direction direction) {
         if (page >= 0) {
             if (size > 0) {
 //                System.out.println("GET ALL BRANDS pageble");
@@ -62,30 +62,30 @@ public List<BrandsResponse> findAll() {
 //            System.out.println("Get brand by id : " + id);
             return brandsService.findOneById(id);
         } else {
-            throw new IllegalArgumentException("BRAND id must not be less than ONE!");
+            throw new IllegalArgumentException("ID must not be less than ONE!");
         }
     }
 
-//    update
+    //    update
 //    @PutMapping("/brand")
-@PutMapping
-public BrandsResponse update(@RequestBody @Valid BrandsRequest brandsRequest, @RequestParam Long id) throws WrongInputException {
-    if (id > 0) {
-        return brandsService.update(brandsRequest, id);
-    } else {
-        throw new IllegalArgumentException("BRAND id must not be less than ONE!");
-    }
+    @PutMapping
+    public BrandsResponse update(@RequestBody @Valid BrandsRequest brandsRequest, @RequestParam Long id) throws WrongInputException {
+        if (id > 0) {
+            return brandsService.update(brandsRequest, id);
+        } else {
+            throw new IllegalArgumentException("ID must not be less than ONE!");
+        }
     }
 
-//    delete
+    //    delete
 //    @DeleteMapping("/brand")
-@DeleteMapping
+    @DeleteMapping
     public void delete(@RequestParam Long id) throws WrongInputException {
-    if (id > 0) {
-        brandsService.delete(id);
-    } else {
-        throw new IllegalArgumentException("BRAND id must not be less than ONE!");
-    }
+        if (id > 0) {
+            brandsService.delete(id);
+        } else {
+            throw new IllegalArgumentException("ID must not be less than ONE!");
+        }
     }
 
 
