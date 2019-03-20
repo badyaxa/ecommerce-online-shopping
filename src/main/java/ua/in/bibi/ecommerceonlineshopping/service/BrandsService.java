@@ -1,12 +1,18 @@
 package ua.in.bibi.ecommerceonlineshopping.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.BrandsRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.BrandsResponse;
+import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.entity.Brands;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
 import ua.in.bibi.ecommerceonlineshopping.repository.BrandsRepository;
+import ua.in.bibi.ecommerceonlineshopping.specification.BrandsSpecification;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,22 +31,26 @@ public class BrandsService {
     }
 
 
-    private Brands brandRequestToBrand(BrandsRequest request, Brands brand) {
-        if (brand == null) {
-            brand = new Brands();
+//    read
+//    public List<BrandsResponse> findAll() {
+//        return brandsRepository
+//                .findAll()
+//                .stream()
+//                .map(BrandsResponse::new)
+//                .collect(Collectors.toList());
+//    }
+
+    public DataResponse<BrandsResponse> findAll(String value, Integer page, Integer size, String fieldName, Sort.Direction direction) {
+        Sort sort = Sort.by(direction, fieldName);
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
+        Page<Brands> brandsPage;
+        if (value != null && !value.equals("")) {
+            BrandsSpecification specification = new BrandsSpecification(value);
+            brandsPage = brandsRepository.findAll(specification, pageRequest);
+        } else {
+            brandsPage = brandsRepository.findAll(pageRequest);
         }
-        brand.setName(request.getName());
-        return brandsRepository.save(brand);
-    }
-
-
-    //    read
-    public List<BrandsResponse> findAll() {
-        return brandsRepository
-                .findAll()
-                .stream()
-                .map(BrandsResponse::new)
-                .collect(Collectors.toList());
+        return new DataResponse<BrandsResponse>(brandsPage.stream().map(BrandsResponse::new).collect(Collectors.toList()), brandsPage);
     }
 
 
@@ -50,19 +60,22 @@ public class BrandsService {
     }
 
 
-    public Brands findOne(Long id) throws WrongInputException {
-        return brandsRepository
-                .findById(id)
-                .orElseThrow(() -> new WrongInputException("Brand with id " + id + " not exists"));
-    }
-
-
     //    delete
     public void delete(Long id) throws WrongInputException {
         brandsRepository.delete(findOne(id));
     }
 
 
+
+
+
+    public Brands findOne(Long id) throws WrongInputException {
+        return brandsRepository
+                .findById(id)
+                .orElseThrow(() -> new WrongInputException("Brand with id " + id + " not exists"));
+    }
+
+    @Transactional
     private Brands findById(Long id) throws WrongInputException {
         Optional<Brands> optionalBrand = brandsRepository.findById(id);
         if (optionalBrand.isPresent()) {
@@ -71,6 +84,14 @@ public class BrandsService {
         throw new WrongInputException("Brand with id : " + id + " not found");
     }
 
+
+    private Brands brandRequestToBrand(BrandsRequest request, Brands brand) {
+        if (brand == null) {
+            brand = new Brands();
+        }
+        brand.setName(request.getName());
+        return brandsRepository.save(brand);
+    }
 
 //    @GetMapping("/brands")
 //    public List<BrandResponse> findAllBrands() {

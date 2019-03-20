@@ -9,11 +9,13 @@ import ua.in.bibi.ecommerceonlineshopping.entity.Brands;
 @Setter
 @NoArgsConstructor
 public class BrandsResponse {
+
     private Long id;
+
     private String name;
 
     public BrandsResponse(Brands brands) {
-        id = brands.getId();
-        name = brands.getName();
+        this.id = brands.getId();
+        this.name = brands.getName();
     }
 }
