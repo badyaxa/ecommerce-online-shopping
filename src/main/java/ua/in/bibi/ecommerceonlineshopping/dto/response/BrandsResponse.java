@@ -8,11 +8,11 @@ import ua.in.bibi.ecommerceonlineshopping.entity.Brands;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BrandResponse {
+public class BrandsResponse {
     private Long id;
     private String name;
 
-    public BrandResponse(Brands brands) {
+    public BrandsResponse(Brands brands) {
         id = brands.getId();
         name = brands.getName();
     }

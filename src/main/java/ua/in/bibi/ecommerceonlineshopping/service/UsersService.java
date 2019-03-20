@@ -2,11 +2,8 @@ package ua.in.bibi.ecommerceonlineshopping.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.in.bibi.ecommerceonlineshopping.dto.request.ProductRequest;
-import ua.in.bibi.ecommerceonlineshopping.dto.request.UserRequest;
-import ua.in.bibi.ecommerceonlineshopping.dto.response.ProductResponse;
-import ua.in.bibi.ecommerceonlineshopping.dto.response.UserResponse;
-import ua.in.bibi.ecommerceonlineshopping.entity.Products;
+import ua.in.bibi.ecommerceonlineshopping.dto.request.UsersRequest;
+import ua.in.bibi.ecommerceonlineshopping.dto.response.UsersResponse;
 import ua.in.bibi.ecommerceonlineshopping.entity.Users;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
 import ua.in.bibi.ecommerceonlineshopping.repository.UsersRepository;
@@ -15,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class UsersService {
 
     @Autowired
     private UsersRepository usersRepository;
@@ -24,24 +21,24 @@ public class UserService {
 //    private BrandService brandService;
 
     //    create
-    public UserResponse create(UserRequest userRequest) throws WrongInputException {
-        return new UserResponse(userRequestToUser(null, userRequest));
+    public UsersResponse create(UsersRequest usersRequest) throws WrongInputException {
+        return new UsersResponse(userRequestToUser(null, usersRequest));
     }
 
 
     //    read
-    public List<UserResponse> findAll() {
+    public List<UsersResponse> findAll() {
         return usersRepository
                 .findAll()
                 .stream()
-                .map(UserResponse::new)
+                .map(UsersResponse::new)
                 .collect(Collectors.toList());
     }
 
 
     //    update
-    public UserResponse update(Long id, UserRequest userRequest) throws WrongInputException {
-        return new UserResponse(userRequestToUser(findOne(id), userRequest));
+    public UsersResponse update(Long id, UsersRequest usersRequest) throws WrongInputException {
+        return new UsersResponse(userRequestToUser(findOne(id), usersRequest));
     }
 
 
@@ -49,7 +46,7 @@ public class UserService {
         return usersRepository.findById(id).orElseThrow(() -> new WrongInputException("User with id " + id + " not exists"));
     }
 
-    private Users userRequestToUser(Users user, UserRequest request) throws WrongInputException {
+    private Users userRequestToUser(Users user, UsersRequest request) throws WrongInputException {
         if (user == null) {
             user = new Users();
         }
@@ -65,11 +62,6 @@ public class UserService {
     public void delete(Long id) throws WrongInputException {
         usersRepository.delete(findOne(id));
     }
-
-
-
-
-
 
 
 //    public DataResponse<ProductResponse> findByFilter(ProductFilterRequest filterRequest) {

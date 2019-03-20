@@ -2,48 +2,48 @@ package ua.in.bibi.ecommerceonlineshopping.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ua.in.bibi.ecommerceonlineshopping.dto.request.ProductRequest;
-import ua.in.bibi.ecommerceonlineshopping.dto.response.ProductResponse;
+import ua.in.bibi.ecommerceonlineshopping.dto.request.ProductsRequest;
+import ua.in.bibi.ecommerceonlineshopping.dto.response.ProductsResponse;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
-import ua.in.bibi.ecommerceonlineshopping.service.ProductService;
+import ua.in.bibi.ecommerceonlineshopping.service.ProductsService;
 
 import java.util.List;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/product")
-public class ProductController {
+public class ProductsController {
 
     @Autowired
-    private ProductService productService;
+    private ProductsService productsService;
 
 //    create
 //    @PostMapping("/product")
 //    @ResponseStatus(HttpStatus.CREATED)
 @PostMapping
-public ProductResponse create(@RequestBody ProductRequest productRequest) throws WrongInputException {
-        return productService.create(productRequest);
+public ProductsResponse create(@RequestBody ProductsRequest productsRequest) throws WrongInputException {
+    return productsService.create(productsRequest);
     }
 
 //    read  //in PublicController
 //    @GetMapping("/products")
 @GetMapping
-    public List<ProductResponse> findAll() {
-        return productService.findAll();
+public List<ProductsResponse> findAll() {
+    return productsService.findAll();
     }
 
 //    update
 //    @PutMapping("/product")
 @PutMapping
-    public ProductResponse update(@RequestParam Long id, @RequestBody ProductRequest productRequest) throws WrongInputException {
-        return productService.update(id, productRequest);
+public ProductsResponse update(@RequestParam Long id, @RequestBody ProductsRequest productsRequest) throws WrongInputException {
+    return productsService.update(id, productsRequest);
     }
 
 //    delete
 //    @DeleteMapping("/product")
 @DeleteMapping
     public void delete(@RequestParam Long id) throws WrongInputException {
-        productService.delete(id);
+    productsService.delete(id);
     }
 
 //    @GetMapping("/title/{bookTitle}")

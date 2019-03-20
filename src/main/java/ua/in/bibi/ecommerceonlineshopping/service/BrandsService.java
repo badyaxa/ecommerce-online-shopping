@@ -2,28 +2,30 @@ package ua.in.bibi.ecommerceonlineshopping.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.in.bibi.ecommerceonlineshopping.dto.request.BrandRequest;
-import ua.in.bibi.ecommerceonlineshopping.dto.response.BrandResponse;
+import ua.in.bibi.ecommerceonlineshopping.dto.request.BrandsRequest;
+import ua.in.bibi.ecommerceonlineshopping.dto.response.BrandsResponse;
 import ua.in.bibi.ecommerceonlineshopping.entity.Brands;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
 import ua.in.bibi.ecommerceonlineshopping.repository.BrandsRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class BrandService {
+public class BrandsService {
 
     @Autowired
     private BrandsRepository brandsRepository;
 
 
-//    create
-    public BrandResponse create(BrandRequest request) {
-        return new BrandResponse(brandRequestToBrand(request, null));
+    //    create
+    public BrandsResponse create(BrandsRequest request) {
+        return new BrandsResponse(brandRequestToBrand(request, null));
     }
 
-    private Brands brandRequestToBrand(BrandRequest request, Brands brand) {
+
+    private Brands brandRequestToBrand(BrandsRequest request, Brands brand) {
         if (brand == null) {
             brand = new Brands();
         }
@@ -32,19 +34,19 @@ public class BrandService {
     }
 
 
-//    read
-    public List<BrandResponse> findAll() {
+    //    read
+    public List<BrandsResponse> findAll() {
         return brandsRepository
                 .findAll()
                 .stream()
-                .map(BrandResponse::new)
+                .map(BrandsResponse::new)
                 .collect(Collectors.toList());
     }
 
 
-//    update
-    public BrandResponse update(BrandRequest request, Long id) throws WrongInputException {
-        return new BrandResponse(brandRequestToBrand(request, findOne(id)));
+    //    update
+    public BrandsResponse update(BrandsRequest request, Long id) throws WrongInputException {
+        return new BrandsResponse(brandRequestToBrand(request, findOne(id)));
     }
 
 
@@ -55,14 +57,29 @@ public class BrandService {
     }
 
 
-//    delete
+    //    delete
     public void delete(Long id) throws WrongInputException {
         brandsRepository.delete(findOne(id));
     }
 
 
+    private Brands findById(Long id) throws WrongInputException {
+        Optional<Brands> optionalBrand = brandsRepository.findById(id);
+        if (optionalBrand.isPresent()) {
+            return optionalBrand.get();
+        }
+        throw new WrongInputException("Brand with id : " + id + " not found");
+    }
 
 
+//    @GetMapping("/brands")
+//    public List<BrandResponse> findAllBrands() {
+//        return brandService.findAll();
+//    }
+//    @GetMapping("/brands")
+//    public Iterable<Brands> getAllB() {
+//        return brandsRepository.findAll();
+//    }
 
 //    public DataResponse<CountryResponse> findAll(PaginationRequest pagination) {
 //        Page<Country> all = countryRepository.findAll(pagination.mapToPageRequest());

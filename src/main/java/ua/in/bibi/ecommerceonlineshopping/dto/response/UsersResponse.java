@@ -9,12 +9,12 @@ import ua.in.bibi.ecommerceonlineshopping.entity.Users;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserResponse {
+public class UsersResponse {
     private Long id;
     private String name;
     private String email;
 
-    public UserResponse(Users user) {
+    public UsersResponse(Users user) {
         id = user.getId();
         name = user.getName();
         email = user.getEmail();

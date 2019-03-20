@@ -8,7 +8,7 @@ import ua.in.bibi.ecommerceonlineshopping.entity.Products;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProductResponse {
+public class ProductsResponse {
     private Long id;
     private String brandName;
     private String name;
@@ -26,7 +26,7 @@ public class ProductResponse {
      * private CountryResponse countryResponse;
      */
 
-    public ProductResponse(Products product) {
+    public ProductsResponse(Products product) {
         id = product.getId();
         brandName = product.getBrand().getName();
         name = product.getName();

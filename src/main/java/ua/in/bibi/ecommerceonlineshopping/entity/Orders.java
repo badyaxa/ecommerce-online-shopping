@@ -64,4 +64,6 @@ public class Orders {
 //    @ManyToMany
 //    private List<Features> features = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    private OrdersLabels ordersLabels;
 }

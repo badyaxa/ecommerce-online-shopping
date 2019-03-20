@@ -25,11 +25,12 @@ public class Products {
     @GeneratedValue(strategy = GenerationType.IDENTITY)//AUTO, SEQUENCE, TABLE
     private Long id;
 
-//    @Column(nullable = false)
-    private String url;// not null
-
     @ManyToOne
     private Brands brand;
+
+//    @ManyToOne
+//    @JoinColumn(name = "category_id")
+//    private Categories category;
 
     @NotBlank(message = "Product name must not be empty")
     @Column(name = "name", nullable = false, unique = true)
@@ -39,6 +40,10 @@ public class Products {
 
     @OneToMany(mappedBy = "product")
     private List<Images> imagesList = new ArrayList<>();
+
+
+    //    @Column(nullable = false)
+//    private String url;// not null
 
 //    @OneToOne
 //    private Optionsz option;

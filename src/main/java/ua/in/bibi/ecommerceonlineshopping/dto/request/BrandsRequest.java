@@ -7,6 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CategoryRequest {
+public class BrandsRequest {
+
     private String name;
+
 }

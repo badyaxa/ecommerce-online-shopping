@@ -2,49 +2,51 @@ package ua.in.bibi.ecommerceonlineshopping.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ua.in.bibi.ecommerceonlineshopping.dto.request.BrandRequest;
-import ua.in.bibi.ecommerceonlineshopping.dto.request.PaginationRequest;
-import ua.in.bibi.ecommerceonlineshopping.dto.response.BrandResponse;
-import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
+import ua.in.bibi.ecommerceonlineshopping.dto.request.BrandsRequest;
+import ua.in.bibi.ecommerceonlineshopping.dto.response.BrandsResponse;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
-import ua.in.bibi.ecommerceonlineshopping.service.BrandService;
+import ua.in.bibi.ecommerceonlineshopping.repository.BrandsRepository;
+import ua.in.bibi.ecommerceonlineshopping.service.BrandsService;
 
 import java.util.List;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/brand")
-public class BrandController {
+public class BrandsController {
 
     @Autowired
-    private BrandService brandService;
+    private BrandsService brandsService;
+
+    @Autowired
+    private BrandsRepository brandsRepository;
 
 //    create
 //    PostMapping("/brand")
 @PostMapping
-    public BrandResponse create(@RequestBody BrandRequest brandRequest) {
-        return brandService.create(brandRequest);
+public BrandsResponse create(@RequestBody BrandsRequest brandsRequest) {
+    return brandsService.create(brandsRequest);
     }
 
     //    read
 //    @GetMapping("/brands")
     @GetMapping
-    public List<BrandResponse> findAll() {
-        return brandService.findAll();
+    public List<BrandsResponse> findAll() {
+        return brandsService.findAll();
     }
 
 //    update
 //    @PutMapping("/brand")
 @PutMapping
-    public BrandResponse update(@RequestBody BrandRequest brandRequest, @RequestParam Long id) throws WrongInputException {
-        return brandService.update(brandRequest, id);
+public BrandsResponse update(@RequestBody BrandsRequest brandsRequest, @RequestParam Long id) throws WrongInputException {
+    return brandsService.update(brandsRequest, id);
     }
 
 //    delete
 //    @DeleteMapping("/brand")
 @DeleteMapping
     public void delete(@RequestParam Long id) throws WrongInputException {
-        brandService.delete(id);
+    brandsService.delete(id);
     }
 
 

@@ -3,10 +3,10 @@ package ua.in.bibi.ecommerceonlineshopping.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ua.in.bibi.ecommerceonlineshopping.dto.request.UserRequest;
-import ua.in.bibi.ecommerceonlineshopping.dto.response.UserResponse;
+import ua.in.bibi.ecommerceonlineshopping.dto.request.UsersRequest;
+import ua.in.bibi.ecommerceonlineshopping.dto.response.UsersResponse;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
-import ua.in.bibi.ecommerceonlineshopping.service.UserService;
+import ua.in.bibi.ecommerceonlineshopping.service.UsersService;
 
 import java.util.List;
 
@@ -15,35 +15,35 @@ import java.util.List;
 @RequestMapping("/user")
 public class UsersController {
     @Autowired
-    UserService userService;
+    UsersService usersService;
 
     //    create
 //    @PostMapping("/user")
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse create(@RequestBody UserRequest userRequest) throws WrongInputException {
-        return userService.create(userRequest);
+    public UsersResponse create(@RequestBody UsersRequest usersRequest) throws WrongInputException {
+        return usersService.create(usersRequest);
     }
 
     //    read
 //    @GetMapping("/users")
     @GetMapping
-    public List<UserResponse> findAll() {
-        return userService.findAll();
+    public List<UsersResponse> findAll() {
+        return usersService.findAll();
     }
 
     //    update
 //    @PutMapping("/user")
     @PutMapping
-    public UserResponse update(@RequestParam Long id, @RequestBody UserRequest userRequest) throws WrongInputException {
-        return userService.update(id, userRequest);
+    public UsersResponse update(@RequestParam Long id, @RequestBody UsersRequest usersRequest) throws WrongInputException {
+        return usersService.update(id, usersRequest);
     }
 
     //    delete
 //    @DeleteMapping("/user")
     @DeleteMapping
     public void delete(@RequestParam Long id) throws WrongInputException {
-        userService.delete(id);
+        usersService.delete(id);
     }
 
 //    @GetMapping("/title/{bookTitle}")
