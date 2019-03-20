@@ -9,11 +9,13 @@ import ua.in.bibi.ecommerceonlineshopping.entity.Categories;
 @Setter
 @NoArgsConstructor
 public class CategoriesResponse {
+
     private Long id;
+
     private String name;
 
     public CategoriesResponse(Categories categories) {
-        id = categories.getId();
-        name = categories.getName();
+        this.id = categories.getId();
+        this.name = categories.getName();
     }
 }

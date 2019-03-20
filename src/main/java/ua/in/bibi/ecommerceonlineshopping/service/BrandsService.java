@@ -32,13 +32,13 @@ public class BrandsService {
 
 
 //    read
-//    public List<BrandsResponse> findAll() {
-//        return brandsRepository
-//                .findAll()
-//                .stream()
-//                .map(BrandsResponse::new)
-//                .collect(Collectors.toList());
-//    }
+public List<BrandsResponse> findAll() {
+    return brandsRepository
+            .findAll()
+            .stream()
+            .map(BrandsResponse::new)
+            .collect(Collectors.toList());
+}
 
     public DataResponse<BrandsResponse> findAll(String value, Integer page, Integer size, String fieldName, Sort.Direction direction) {
         Sort sort = Sort.by(direction, fieldName);
@@ -63,10 +63,8 @@ public class BrandsService {
     //    delete
     public void delete(Long id) throws WrongInputException {
         brandsRepository.delete(findOne(id));
+//        brandsRepository.deleteById(id);
     }
-
-
-
 
 
     public Brands findOne(Long id) throws WrongInputException {
@@ -76,12 +74,13 @@ public class BrandsService {
     }
 
     @Transactional
-    private Brands findById(Long id) throws WrongInputException {
-        Optional<Brands> optionalBrand = brandsRepository.findById(id);
-        if (optionalBrand.isPresent()) {
-            return optionalBrand.get();
+    public BrandsResponse findOneById(Long id) {
+        Optional<Brands> brandsOptional = brandsRepository.findById(id);
+        if (brandsOptional.isPresent()) {
+            return new BrandsResponse(brandsOptional.get());
+        } else {
+            throw new IllegalArgumentException("Brand with id " + id + " not found");
         }
-        throw new WrongInputException("Brand with id : " + id + " not found");
     }
 
 

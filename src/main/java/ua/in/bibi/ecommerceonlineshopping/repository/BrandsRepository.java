@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 import ua.in.bibi.ecommerceonlineshopping.entity.Brands;
 
 @Repository
-public interface BrandsRepository extends /*CrudRepository<Brands, Long> , */JpaRepository<Brands, Long>, JpaSpecificationExecutor<Brands> {
+public interface BrandsRepository extends /*CrudRepository<Brands, Long> , */
+        JpaRepository<Brands, Long>, JpaSpecificationExecutor<Brands> {
 }

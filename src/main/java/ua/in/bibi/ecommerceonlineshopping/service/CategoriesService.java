@@ -1,14 +1,21 @@
 package ua.in.bibi.ecommerceonlineshopping.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.CategoriesRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.CategoriesResponse;
+import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.entity.Categories;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
 import ua.in.bibi.ecommerceonlineshopping.repository.CategoriesRepository;
+import ua.in.bibi.ecommerceonlineshopping.specification.CategoriesSpecification;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +39,19 @@ public class CategoriesService {
                 .collect(Collectors.toList());
     }
 
+    public DataResponse<CategoriesResponse> findAll(String value, Integer page, Integer size, String fieldName, Sort.Direction direction) {
+        Sort sort = Sort.by(direction, fieldName);
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
+        Page<Categories> categoriesPage;
+        if (value != null && !value.equals("")) {
+            CategoriesSpecification specification = new CategoriesSpecification(value);
+            categoriesPage = categoriesRepository.findAll(specification, pageRequest);
+        } else {
+            categoriesPage = categoriesRepository.findAll(pageRequest);
+        }
+        return new DataResponse<CategoriesResponse>(categoriesPage.stream().map(CategoriesResponse::new).collect(Collectors.toList()), categoriesPage);
+    }
+
 
     //    update
     public CategoriesResponse update(CategoriesRequest request, Long id) throws WrongInputException {
@@ -42,6 +62,7 @@ public class CategoriesService {
     //    delete
     public void delete(Long id) throws WrongInputException {
         categoriesRepository.delete(findOne(id));
+//        categoriesRepository.deleteById(id);
     }
 
 
@@ -49,6 +70,16 @@ public class CategoriesService {
         return categoriesRepository
                 .findById(id)
                 .orElseThrow(() -> new WrongInputException("Categories with id " + id + " not exists"));
+    }
+
+    @Transactional
+    public CategoriesResponse findOneById(Long id) {
+        Optional<Categories> brandsOptional = categoriesRepository.findById(id);
+        if (brandsOptional.isPresent()) {
+            return new CategoriesResponse(brandsOptional.get());
+        } else {
+            throw new IllegalArgumentException("Brand with id " + id + " not found");
+        }
     }
 
 
