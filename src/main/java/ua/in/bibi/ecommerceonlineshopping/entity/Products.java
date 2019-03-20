@@ -21,6 +21,7 @@ import java.util.List;
 public class Products {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)//AUTO, SEQUENCE, TABLE
     private Long id;
 
@@ -31,10 +32,9 @@ public class Products {
     private Brands brand;
 
     @NotBlank(message = "Product name must not be empty")
-    @Column(nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true)
 //    @NotNull
     @Size(min = 3, max = 50)
-//    @Column(name = "name")
     private String name;// not null
 
     @OneToMany(mappedBy = "product")
@@ -52,12 +52,12 @@ public class Products {
 
     //private String annotation;// not null
 
-    private String body;// not null
-    private Boolean visible;// not null default 1
-    private Integer position;// not null
-    private String meta_title;// not null
-    private String meta_keywords;// not null
-    private String meta_description;// not null
+//    private String body;// not null
+//    private Boolean visible;// not null default 1
+//    private Integer position;// not null
+//    private String meta_title;// not null
+//    private String meta_keywords;// not null
+//    private String meta_description;// not null
 
 
 //    @ManyToMany

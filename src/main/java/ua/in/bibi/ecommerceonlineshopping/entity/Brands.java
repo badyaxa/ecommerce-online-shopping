@@ -36,22 +36,22 @@ public class Brands {
 //    @OrderBy("firstName asc") //указание сортировки
     private List<Products> listProductsByBrand = new ArrayList<>();
 
-    @Column(name = "url")
-    private String url;// not null
+//    @Column(name = "url")
+//    private String url;// not null
 
-    @Column(name = "meta_title")
-    private String metaTitle;// not null
-
-    @Column(name = "meta_keywords")
-    private String metaKeywords;// not null
-
-    @Column(name = "meta_description")
-    private String metaDescription;// not null
-
-    @Column(name = "description")
-    private String description;// not null
-
-    @Column(name = "image")
-    private String image;// not null
+//    @Column(name = "meta_title")
+//    private String metaTitle;// not null
+//
+//    @Column(name = "meta_keywords")
+//    private String brandMetaKeywords;// not null
+//
+//    @Column(name = "meta_description")
+//    private String brandMetaDescription;// not null
+//
+//    @Column(name = "description")
+//    private String brandDescription;// not null
+//
+//    @Column(name = "image")
+//    private String brandImage;// not null
 
 }

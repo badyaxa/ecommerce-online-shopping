@@ -20,24 +20,26 @@ public class Categories {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(unique = true)
+    @Column(name = "name", unique = true)
     @NotBlank(message = "Category name must not be empty")
     private String name;// not null
 
 
 //    private parent_id;// not null  default 0
 
-    private String meta_title;// not null
-    private String meta_keywords;// not null
-    private String meta_description;// not null
-    private String description;// not null
-    private String url;// not null
-    private String image;// not null
-
-    private Integer position;// not null default 0
-    private Boolean visible;// not null default 1
+//    @Column(name = "meta_title")
+//    private String categoryMetaTitle;// not null
+//    private String categoryMetaKeywords;// not null
+//    private String categoryMetaDescription;// not null
+//    private String categoryDescription;// not null
+//    private String categoryUrl;// not null
+//    private String categoryImage;// not null
+//
+//    private Integer categoryPosition;// not null default 0
+//    private Boolean categoryVisible;// not null default 1
 
 
 //    @NotNull

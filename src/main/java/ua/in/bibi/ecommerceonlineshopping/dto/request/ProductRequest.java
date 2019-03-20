@@ -12,7 +12,7 @@ public class ProductRequest {
 
     private String name;
 
-    private Long brandId;
+    private Long id;
 
 //    private Integer year;
 

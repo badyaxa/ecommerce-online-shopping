@@ -15,6 +15,7 @@ import javax.persistence.*;
 public class CategoriesFeatures {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

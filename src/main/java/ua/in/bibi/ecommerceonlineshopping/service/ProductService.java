@@ -5,11 +5,14 @@ import org.springframework.stereotype.Service;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.ProductRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.ProductResponse;
+import ua.in.bibi.ecommerceonlineshopping.entity.Brands;
 import ua.in.bibi.ecommerceonlineshopping.entity.Products;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
+import ua.in.bibi.ecommerceonlineshopping.repository.BrandsRepository;
 import ua.in.bibi.ecommerceonlineshopping.repository.ProductsRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,11 +22,28 @@ public class ProductService {
     private ProductsRepository productsRepository;
 
     @Autowired
+    private BrandsRepository brandsRepository;
+
+    @Autowired
     private BrandService brandService;
 
 //    create
     public ProductResponse create(ProductRequest productRequest) throws WrongInputException {
-        return new ProductResponse(productRequestToProduct(null, productRequest));
+        Products product = new Products();
+        product.setName(productRequest.getName());
+//        product.setPetType(animalRequest.getPetType());
+        product.setBrand(findBrandById(productRequest.getId()));
+        return new ProductResponse(productsRepository.save(product));
+
+//        return new ProductResponse(productRequestToProduct(null, productRequest));
+    }
+
+    private Brands findBrandById(Long id) throws WrongInputException {
+        Optional<Brands> optionalBrand = brandsRepository.findById(id);
+        if (optionalBrand.isPresent()) {
+            return optionalBrand.get();
+        }
+        throw new WrongInputException("Brand with id : " + id + " not found");
     }
 
 
@@ -51,7 +71,7 @@ public class ProductService {
             product = new Products();
         }
         product.setName(request.getName());
-        product.setBrand(brandService.findOne(request.getBrandId()));
+        product.setBrand(brandService.findOne(request.getId()));
 //        product.setVolume(request.getVolume());
 //        product.setYear(request.getYear());
         return productsRepository.save(product);
