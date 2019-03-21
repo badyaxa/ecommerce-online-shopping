@@ -96,6 +96,7 @@ public class CategoriesService {
             category = new Categories();
         }
         category.setName(request.getName());
+        category.setParent_id(request.getParentId());
         return categoriesRepository.save(category);
     }
 

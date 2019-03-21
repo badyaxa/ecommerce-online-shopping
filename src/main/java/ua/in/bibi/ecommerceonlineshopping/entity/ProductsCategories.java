@@ -20,8 +20,10 @@ public class ProductsCategories {
 
     @OneToOne
     private Products product;
+//    private Long productId;
 
     @OneToOne
     private Categories category;
+//    private Long categoryId;
 
 }

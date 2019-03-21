@@ -1,8 +1,10 @@
 package ua.in.bibi.ecommerceonlineshopping.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.bytebuddy.implementation.bind.annotation.Default;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -25,6 +27,7 @@ public class Categories {
     private Long id;
 
     @Min(0)
+    @Column(columnDefinition = "default 0")
     private Long parent_id;// not null  default 0
 
     @Column(name = "name", nullable = false, unique = true)
@@ -32,7 +35,8 @@ public class Categories {
     @Size(min = 3, max = 50)
     private String name;// not null
 
-//    @OneToMany(mappedBy = "category")
+
+    //    @OneToMany(mappedBy = "category")
 //    private List<Products> listProductsByCategory = new ArrayList<>();
 
 

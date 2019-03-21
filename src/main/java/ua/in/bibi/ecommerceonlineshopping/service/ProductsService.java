@@ -10,7 +10,9 @@ import ua.in.bibi.ecommerceonlineshopping.dto.request.ProductsRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.ProductsResponse;
 import ua.in.bibi.ecommerceonlineshopping.entity.Products;
+import ua.in.bibi.ecommerceonlineshopping.entity.ProductsCategories;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
+import ua.in.bibi.ecommerceonlineshopping.repository.CategoriesRepository;
 import ua.in.bibi.ecommerceonlineshopping.repository.ProductsCategoriesRepository;
 import ua.in.bibi.ecommerceonlineshopping.repository.ProductsRepository;
 import ua.in.bibi.ecommerceonlineshopping.specification.ProductsSpecification;
@@ -26,10 +28,13 @@ public class ProductsService {
     private ProductsRepository productsRepository;
 
     @Autowired
+    private CategoriesRepository categoriesRepository;
+
+    @Autowired
     private ProductsCategoriesRepository productsCategoriesRepository;
 
-//    @Autowired
-//    private ProductsCategoriesService productsCategoriesService;
+    @Autowired
+    private ProductsCategoriesService productsCategoriesService;
 
     @Autowired
     private CategoriesService categoriesService;
@@ -43,8 +48,13 @@ public class ProductsService {
         Products product = new Products();
         product.setName(productRequest.getName());
         product.setBrand(brandsService.findOne(productRequest.getBrandId()));
+//        Products savedProduct = ;
 //        product.setCategory(categoriesService.findOne(productRequest.getCategoryId()));
 //        productsCategoriesRepository.getOne()
+//
+//        ProductsCategories productsCategories = new ProductsCategories();
+//        productsCategories.seteeeee(productRequest.getCategoryId(),productRequest.);
+//        productsCategories.setCategory(categoriesRepository.getOne());
         return new ProductsResponse(productsRepository.save(product));
 
 //        return new ProductsResponse(productRequestToProducts(null, productRequest));
