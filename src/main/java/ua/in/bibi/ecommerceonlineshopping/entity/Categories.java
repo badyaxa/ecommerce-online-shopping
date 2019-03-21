@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -23,13 +24,26 @@ public class Categories {
     @Column(name = "id")
     private Long id;
 
+    @Min(0)
+    private Long parent_id;// not null  default 0
+
     @Column(name = "name", nullable = false, unique = true)
     @NotBlank(message = "Category name must not be empty")
     @Size(min = 3, max = 50)
     private String name;// not null
 
+//    @OneToMany(mappedBy = "category")
+//    private List<Products> listProductsByCategory = new ArrayList<>();
 
-//    private parent_id;// not null  default 0
+
+//    @ManyToMany
+//    @OneToMany(mappedBy = "category")
+//    (fetch = FetchType.LAZY) //для лістів
+//    (fetch = FetchType.EAGER) //для одиночних
+//    @OrderBy("firstName asc") //указание сортировки
+
+
+
 
 //    @Column(name = "meta_title")
 //    private String categoryMetaTitle;// not null
@@ -47,12 +61,5 @@ public class Categories {
 
     //    @ManyToMany
 //    private List<Features> features = new ArrayList<>();
-//
-//@ManyToMany
-    @OneToMany(mappedBy = "category")
-//    (fetch = FetchType.LAZY) //для лістів
-//    (fetch = FetchType.EAGER) //для одиночних
-//    @OrderBy("firstName asc") //указание сортировки
-    private List<Products> listProductsByCategory = new ArrayList<>();
 
 }

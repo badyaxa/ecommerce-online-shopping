@@ -28,8 +28,11 @@ public class Products {
     @ManyToOne
     private Brands brand;
 
+//    @OneToOne
 //    @ManyToOne
 //    @JoinColumn(name = "category_id")
+//    @ManyToMany(mappedBy = "listProductsByCategory")
+//    private List<Categories> categoriesList = new ArrayList<>();
 //    private Categories category;
 
     @NotBlank(message = "Product name must not be empty")
@@ -37,6 +40,7 @@ public class Products {
 //    @NotNull
     @Size(min = 3, max = 50)
     private String name;// not null
+
 
     @OneToMany(mappedBy = "product")
     private List<Images> imagesList = new ArrayList<>();
@@ -65,9 +69,6 @@ public class Products {
 //    private String meta_description;// not null
 
 
-    //    @ManyToMany(mappedBy = "products")
-    @ManyToOne
-    private Categories category;
 
 
 }

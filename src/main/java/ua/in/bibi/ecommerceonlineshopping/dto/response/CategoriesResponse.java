@@ -10,11 +10,14 @@ import ua.in.bibi.ecommerceonlineshopping.entity.Categories;
 @NoArgsConstructor
 public class CategoriesResponse {
 
+    private Long parentId;
+
     private Long id;
 
     private String name;
 
     public CategoriesResponse(Categories categories) {
+        this.parentId = categories.getParent_id();
         this.id = categories.getId();
         this.name = categories.getName();
     }
