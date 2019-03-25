@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "images_t")
+@Table(name = "images")
 public class Images {
 
     @Id

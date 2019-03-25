@@ -36,7 +36,7 @@ public class ProductsResponse {
         id = product.getId();
         name = product.getName();
         brandName = product.getBrand().getName();
-//        categoryName = category.getName();
+//        categoryName = product.getCategory().getName();
 //        year = product.getYear();
 //        volume = product.getVolume();
     }

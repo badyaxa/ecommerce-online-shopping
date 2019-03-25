@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "groups_t")
+@Table(name = "user_group")
 public class Groups {
 
     @Id

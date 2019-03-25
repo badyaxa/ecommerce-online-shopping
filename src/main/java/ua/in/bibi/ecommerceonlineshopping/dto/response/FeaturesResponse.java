@@ -3,19 +3,19 @@ package ua.in.bibi.ecommerceonlineshopping.dto.response;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ua.in.bibi.ecommerceonlineshopping.entity.Brands;
+import ua.in.bibi.ecommerceonlineshopping.entity.Features;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class BrandsResponse {
+public class FeaturesResponse {
 
     private Long id;
 
     private String name;
 
-    public BrandsResponse(Brands brand) {
-        this.id = brand.getId();
-        this.name = brand.getName();
+    public FeaturesResponse(Features feature) {
+        this.id = feature.getId();
+        this.name = feature.getName();
     }
 }

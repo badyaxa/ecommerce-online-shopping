@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "products_t")
+@Table(name = "products")
 /*@NamedQuery(name = "Car.findByVolume",
         query = "select c from Car c where c.volume between ?1 and ?2")*/
 public class Products {
@@ -29,10 +29,10 @@ public class Products {
     private Brands brand;
 
 //    @OneToOne
-//    @ManyToOne
 //    @JoinColumn(name = "category_id")
-//    @ManyToMany(mappedBy = "listProductsByCategory")
-//    private List<Categories> categoriesList = new ArrayList<>();
+@ManyToMany
+private List<Categories> category = new ArrayList<>();
+//    @ManyToOne
 //    private Categories category;
 
     @NotBlank(message = "Product name must not be empty")
@@ -42,8 +42,8 @@ public class Products {
     private String name;// not null
 
 
-    @OneToMany(mappedBy = "product")
-    private List<Images> imagesList = new ArrayList<>();
+//    @OneToMany(mappedBy = "product")
+//    private List<Images> image = new ArrayList<>();
 
 
     //    @Column(nullable = false)

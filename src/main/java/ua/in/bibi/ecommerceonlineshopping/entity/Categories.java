@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "categories_t")
+@Table(name = "categories")
 public class Categories {
 
     @Id
@@ -26,19 +26,24 @@ public class Categories {
     @Column(name = "id")
     private Long id;
 
-    @Min(0)
-    @Column(columnDefinition = "default 0")
-    private Long parent_id;// not null  default 0
+    //    @Min(0)
+//    @Column(name = "parent_id", columnDefinition = "default 0")
+    private Long parentId;// not null  default 0
 
-    @Column(name = "name", nullable = false, unique = true)
+
     @NotBlank(message = "Category name must not be empty")
-    @Size(min = 3, max = 50)
+    @Size(min = 2, max = 50)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;// not null
 
 
-    //    @OneToMany(mappedBy = "category")
-//    private List<Products> listProductsByCategory = new ArrayList<>();
+    @ManyToMany(mappedBy = "category"/*, fetch = FetchType.LAZY*/)
+    private List<Products> product = new ArrayList<>();
+//    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+//    private List<Products> product = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "categories")
+    private List<Features> features = new ArrayList<>();
 
 //    @ManyToMany
 //    @OneToMany(mappedBy = "category")
@@ -63,7 +68,5 @@ public class Categories {
 
 //    @NotNull
 
-    //    @ManyToMany
-//    private List<Features> features = new ArrayList<>();
 
 }

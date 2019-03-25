@@ -16,9 +16,9 @@ public class CategoriesResponse {
 
     private String name;
 
-    public CategoriesResponse(Categories categories) {
-        this.parentId = categories.getParent_id();
-        this.id = categories.getId();
-        this.name = categories.getName();
+    public CategoriesResponse(Categories category) {
+        this.parentId = category.getParentId();
+        this.id = category.getId();
+        this.name = category.getName();
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "features_t")
+@Table(name = "features")
 public class Features {
 
     @Id
@@ -38,8 +38,8 @@ public class Features {
 
 //    @NotNull
 
-//    @ManyToMany
-//    private List<Categories> categories = new ArrayList<>();
+    @ManyToMany/*(mappedBy = "features")*/
+    private List<Categories> categories = new ArrayList<>();
 
 
 }

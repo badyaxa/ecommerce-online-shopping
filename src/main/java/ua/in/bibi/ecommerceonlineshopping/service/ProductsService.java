@@ -10,10 +10,8 @@ import ua.in.bibi.ecommerceonlineshopping.dto.request.ProductsRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.ProductsResponse;
 import ua.in.bibi.ecommerceonlineshopping.entity.Products;
-import ua.in.bibi.ecommerceonlineshopping.entity.ProductsCategories;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
 import ua.in.bibi.ecommerceonlineshopping.repository.CategoriesRepository;
-import ua.in.bibi.ecommerceonlineshopping.repository.ProductsCategoriesRepository;
 import ua.in.bibi.ecommerceonlineshopping.repository.ProductsRepository;
 import ua.in.bibi.ecommerceonlineshopping.specification.ProductsSpecification;
 
@@ -29,12 +27,6 @@ public class ProductsService {
 
     @Autowired
     private CategoriesRepository categoriesRepository;
-
-    @Autowired
-    private ProductsCategoriesRepository productsCategoriesRepository;
-
-    @Autowired
-    private ProductsCategoriesService productsCategoriesService;
 
     @Autowired
     private CategoriesService categoriesService;

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "currencies_t")
+@Table(name = "currencies")
 public class Currencies {
 
     @Id
