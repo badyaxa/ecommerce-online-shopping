@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.ProductsRequest;
@@ -37,9 +39,10 @@ public class ProductsService {
 
     //    create
     public ProductsResponse create(ProductsRequest productRequest) throws WrongInputException {
-        Products product = new Products();
-        product.setName(productRequest.getName());
-        product.setBrand(brandsService.findOne(productRequest.getBrandId()));
+//        Products product = new Products();
+//        product.setName(productRequest.getName());
+//        product.setBrand(brandsService.findOne(productRequest.getBrandId()));
+
 //        Products savedProduct = ;
 //        product.setCategory(categoriesService.findOne(productRequest.getCategoryId()));
 //        productsCategoriesRepository.getOne()
@@ -47,9 +50,9 @@ public class ProductsService {
 //        ProductsCategories productsCategories = new ProductsCategories();
 //        productsCategories.seteeeee(productRequest.getCategoryId(),productRequest.);
 //        productsCategories.setCategory(categoriesRepository.getOne());
-        return new ProductsResponse(productsRepository.save(product));
+//        return new ProductsResponse(productsRepository.save(product));
 
-//        return new ProductsResponse(productRequestToProducts(null, productRequest));
+        return new ProductsResponse(productRequestToProducts(null, productRequest));
     }
 
 
@@ -62,7 +65,7 @@ public class ProductsService {
                 .collect(Collectors.toList());
     }
 
-    public DataResponse<ProductsResponse> findAll(String value, Integer page, Integer size, String fieldName, Sort.Direction direction) {
+    public DataResponse<ProductsResponse> findAll(String value,/* String category,*/ Integer page, Integer size, String fieldName, Sort.Direction direction) {
         Sort sort = Sort.by(direction, fieldName);
         PageRequest pageRequest = PageRequest.of(page, size, sort);
         Page<Products> productsPage;
@@ -89,7 +92,9 @@ public class ProductsService {
 
 
     public Products findOne(Long id) throws WrongInputException {
-        return productsRepository.findById(id).orElseThrow(() -> new WrongInputException("Products with id " + id + " not exists"));
+        return productsRepository
+                .findById(id)
+                .orElseThrow(() -> new WrongInputException("Products with id " + id + " not exists"));
     }
 
     @Transactional
@@ -98,6 +103,7 @@ public class ProductsService {
         if (productsOptional.isPresent()) {
             return new ProductsResponse(productsOptional.get());
         } else {
+//          return new ProductsResponse(HttpStatus.NOT_FOUND);
             throw new IllegalArgumentException("Products with id " + id + " not found");
         }
     }

@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Setter
 @Getter
@@ -24,16 +25,22 @@ public class Variants {
     @OneToOne
     private Products product;
 
+    @Column(name = "sku")
+    @NotBlank
     private String sku;// not null
 
 //    @NotBlank(message = "User name must not be empty")
     private String name;// not null
 
+
+    @Column(name = "price")
     @Min(value = 0, message = "Product price must be non-negative value")
     private Integer price;
 
     private Integer comparePrice;
 
+    @Column(name = "stock")
+    @NotNull
     @Min(value = 0, message = "Product unit must be non-negative value")
     private Integer stock;
 

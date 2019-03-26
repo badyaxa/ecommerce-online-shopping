@@ -5,14 +5,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
 @NoArgsConstructor
 
 @Entity
-@Table(name = "user_group")
+@Table(name = "users_groups")
 public class Groups {
 
     @Id
@@ -22,6 +26,10 @@ public class Groups {
     @NotBlank(message = "Group name must not be empty")
     private String name;// not null
 
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+    private List<Users> user = new ArrayList<>();
 
-//    private Integer discount;// not null default 0
+    @Min(0)
+    @Max(99)
+    private Integer discount;// not null default 0
 }

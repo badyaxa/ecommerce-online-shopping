@@ -3,6 +3,7 @@ package ua.in.bibi.ecommerceonlineshopping.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-
+@ToString
 @Entity
 @Table(name = "products")
 /*@NamedQuery(name = "Car.findByVolume",
@@ -42,12 +43,17 @@ private List<Categories> category = new ArrayList<>();
     private String name;// not null
 
 
+    @NotBlank(message = "Product url must not be empty")
+    @Column(name = "url", nullable = false, unique = true)
+//    @NotNull
+    @Size(min = 1, max = 30)
+    private String url;// not null
+
+
 //    @OneToMany(mappedBy = "product")
 //    private List<Images> image = new ArrayList<>();
 
 
-    //    @Column(nullable = false)
-//    private String url;// not null
 
 //    @OneToOne
 //    private Optionsz option;

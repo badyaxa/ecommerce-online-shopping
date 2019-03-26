@@ -13,8 +13,9 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "users_t")
+@Table(name = "users")
 public class Users {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -25,22 +26,23 @@ public class Users {
     @Column(name = "email")
     private String email;// not null
 
-    @Column(name = "password")
-    @NotBlank
-    private String password;// not null
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name = "password")
+//    @NotBlank
+//    private String password;// not null
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     @NotBlank(message = "User name must not be empty")
     private String name;// not null
 
-    @OneToOne
+    @ManyToOne
     private Groups group;  // not null
 
-    @Column(name = "enabled")
-    private Boolean enabled;// not null  TINYINT
+//    @Column(name = "enabled")
+//    private Boolean enabled;// not null  TINYINT
 
-    @Column(name = "last_ip")
-    private String lastIp;
+//    @Column(name = "last_ip")
+//    private String lastIp;
 
     //private String created  CURRENT_TIMESTAMP;
 

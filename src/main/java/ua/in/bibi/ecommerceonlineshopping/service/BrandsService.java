@@ -24,18 +24,18 @@ import java.util.stream.Collectors;
 public class BrandsService {
 
     @Autowired
-    private BrandsRepository brandsRepository;
+    private BrandsRepository usersRepository;
 
 
     //    create
     public BrandsResponse create(BrandsRequest request) {
-        return new BrandsResponse(brandRequestToBrand(request, null));
+        return new BrandsResponse(userRequestToBrand(request, null));
     }
 
 
     //    read
     public List<BrandsResponse> findAll() {
-        return brandsRepository
+        return usersRepository
                 .findAll()
                 .stream()
                 .map(BrandsResponse::new)
@@ -45,62 +45,62 @@ public class BrandsService {
     public DataResponse<BrandsResponse> findAll(String value, Integer page, Integer size, String fieldName, Sort.Direction direction) {
         Sort sort = Sort.by(direction, fieldName);
         PageRequest pageRequest = PageRequest.of(page, size, sort);
-        Page<Brands> brandsPage;
+        Page<Brands> usersPage;
         if (value != null && !value.equals("")) {
             BrandsSpecification specification = new BrandsSpecification(value);
-            brandsPage = brandsRepository.findAll(specification, pageRequest);
+            usersPage = usersRepository.findAll(specification, pageRequest);
         } else {
-            brandsPage = brandsRepository.findAll(pageRequest);
+            usersPage = usersRepository.findAll(pageRequest);
         }
-        return new DataResponse<BrandsResponse>(brandsPage.stream().map(BrandsResponse::new).collect(Collectors.toList()), brandsPage);
+        return new DataResponse<BrandsResponse>(usersPage.stream().map(BrandsResponse::new).collect(Collectors.toList()), usersPage);
     }
 
 
     //    update
     public BrandsResponse update(BrandsRequest request, Long id) throws WrongInputException {
-        return new BrandsResponse(brandRequestToBrand(request, findOne(id)));
+        return new BrandsResponse(userRequestToBrand(request, findOne(id)));
     }
 
 
     //    delete
     public void delete(Long id) throws WrongInputException {
-        brandsRepository.delete(findOne(id));
-//        brandsRepository.deleteById(id);
+        usersRepository.delete(findOne(id));
+//        usersRepository.deleteById(id);
     }
 
 
     public Brands findOne(Long id) throws WrongInputException {
-        return brandsRepository
+        return usersRepository
                 .findById(id)
                 .orElseThrow(() -> new WrongInputException("Brand with id " + id + " not exists"));
     }
 
     @Transactional
     public BrandsResponse findOneById(Long id) {
-        Optional<Brands> brandsOptional = brandsRepository.findById(id);
-        if (brandsOptional.isPresent()) {
-            return new BrandsResponse(brandsOptional.get());
+        Optional<Brands> usersOptional = usersRepository.findById(id);
+        if (usersOptional.isPresent()) {
+            return new BrandsResponse(usersOptional.get());
         } else {
             throw new IllegalArgumentException("Brand with id " + id + " not found");
         }
     }
 
 
-    private Brands brandRequestToBrand(BrandsRequest request, Brands brand) {
-        if (brand == null) {
-            brand = new Brands();
+    private Brands userRequestToBrand(BrandsRequest request, Brands user) {
+        if (user == null) {
+            user = new Brands();
         }
-        brand.setName(request.getName());
-        return brandsRepository.save(brand);
+        user.setName(request.getName());
+        return usersRepository.save(user);
     }
 
-//    @GetMapping("/brands")
+//    @GetMapping("/users")
 //    public List<BrandResponse> findAllBrands() {
-//        return brandService.findAll();
+//        return userService.findAll();
 //    }
-//    @GetMapping("/brands")
+//    @GetMapping("/users")
 //    public Iterable<Brands> getAllB() {
-//        return brandsRepository.findAll();
+//        return usersRepository.findAll();
 //    }
 
 //    public DataResponse<CountryResponse> findAll(PaginationRequest pagination) {

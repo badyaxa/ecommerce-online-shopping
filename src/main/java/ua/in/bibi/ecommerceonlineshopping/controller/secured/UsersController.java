@@ -1,42 +1,48 @@
 package ua.in.bibi.ecommerceonlineshopping.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-import ua.in.bibi.ecommerceonlineshopping.dto.request.ProductsRequest;
+import ua.in.bibi.ecommerceonlineshopping.dto.request.UsersRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
-import ua.in.bibi.ecommerceonlineshopping.dto.response.ProductsResponse;
+import ua.in.bibi.ecommerceonlineshopping.dto.response.UsersResponse;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
-import ua.in.bibi.ecommerceonlineshopping.service.ProductsService;
+import ua.in.bibi.ecommerceonlineshopping.service.UsersService;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/product")
-public class ProductsController {
+@RequestMapping("/user")
+public class UsersController {
 
     @Autowired
-    private ProductsService productsService;
+    private UsersService usersService;
+
 
     //    create
-//    @PostMapping("/product")
-//    @ResponseStatus(HttpStatus.CREATED)
+//    PostMapping("/user")
     @PostMapping
-    public ProductsResponse create(@RequestBody @Valid ProductsRequest productsRequest) throws WrongInputException {
-        return productsService.create(productsRequest);
+    public UsersResponse create(@RequestBody @Valid UsersRequest usersRequest) throws WrongInputException {
+        if (usersRequest.getGroupId() > 0) {
+            return usersService.create(usersRequest);
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     //    read
-//    @GetMapping("/products")
+//    @GetMapping
     @GetMapping("/all")
-    public List<ProductsResponse> findAll() {
-        return productsService.findAll();
+    public List<UsersResponse> findAll() {
+//        System.out.println("GET ALL BRANDS");
+        return usersService.findAll();
     }
 
     @GetMapping
-    public DataResponse<ProductsResponse> getProductsSortPaginationFindValue(
+    public DataResponse<UsersResponse> getUsersSortPaginationFindValue(
             @RequestParam(required = false) String value,
             @RequestParam Integer page,
             @RequestParam Integer size,
@@ -45,7 +51,7 @@ public class ProductsController {
         if (page >= 0) {
             if (size > 0) {
 //                System.out.println("GET ALL BRANDS pageble");
-                return productsService.findAll(value, page, size, sortFieldName, direction);
+                return usersService.findAll(value, page, size, sortFieldName, direction);
             } else {
                 throw new IllegalArgumentException("SIZE id must not be less than ONE!");
             }
@@ -56,35 +62,43 @@ public class ProductsController {
     }
 
     @GetMapping("/{id}")
-    public ProductsResponse getProductsById(@PathVariable Long id) {
+    public UsersResponse getBrandById(@PathVariable Long id) {
         if (id > 0) {
-            return productsService.findOneById(id);
+//            System.out.println("Get user by id : " + id);
+            return usersService.findOneById(id);
         } else {
             throw new IllegalArgumentException("ID must not be less than ONE!");
         }
     }
 
     //    update
-//    @PutMapping("/product")
+//    @PutMapping("/user")
     @PutMapping
-    public ProductsResponse update(@RequestParam Long id, @RequestBody ProductsRequest productsRequest) throws WrongInputException {
+    public UsersResponse update(@RequestBody @Valid UsersRequest usersRequest, @RequestParam Long id) throws WrongInputException {
         if (id > 0) {
-            return productsService.update(id, productsRequest);
+            return usersService.update(usersRequest, id);
         } else {
             throw new IllegalArgumentException("ID must not be less than ONE!");
         }
     }
 
     //    delete
-//    @DeleteMapping("/product")
+//    @DeleteMapping("/user")
     @DeleteMapping
     public void delete(@RequestParam Long id) throws WrongInputException {
         if (id > 0) {
-            productsService.delete(id);
+            usersService.delete(id);
         } else {
             throw new IllegalArgumentException("ID must not be less than ONE!");
         }
     }
+
+
+//    @PostMapping("/userpage")
+//    public DataResponse<BrandResponse> getPage(@RequestBody PaginationRequest paginationRequest) {
+//        return userService.findAll(paginationRequest);
+//    }
+}
 
 //    @GetMapping("/title/{bookTitle}")
 //    public List findByTitle(@PathVariable String bookTitle) {
@@ -104,7 +118,8 @@ public class ProductsController {
 //    }
 
 //    @PostMapping("/page/byBrandId")
-//    public DataResponse<ProductResponse> findAllByBrandId(@RequestParam Long brandId, @RequestBody PaginationRequest paginationRequest) throws WrongInputException {
-//        return productService.findAllByBrandId(brandId, paginationRequest);
+//    public DataResponse<ProductResponse> findAllByBrandId(@RequestParam Long userId, @RequestBody PaginationRequest paginationRequest) throws WrongInputException {
+//        return productService.findAllByBrandId(userId, paginationRequest);
 //    }
-}
+
+

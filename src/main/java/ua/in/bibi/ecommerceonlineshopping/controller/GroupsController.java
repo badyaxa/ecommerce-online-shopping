@@ -3,39 +3,41 @@ package ua.in.bibi.ecommerceonlineshopping.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-import ua.in.bibi.ecommerceonlineshopping.dto.request.CategoriesRequest;
-import ua.in.bibi.ecommerceonlineshopping.dto.response.CategoriesResponse;
+import ua.in.bibi.ecommerceonlineshopping.dto.request.GroupsRequest;
+import ua.in.bibi.ecommerceonlineshopping.dto.response.GroupsResponse;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
-import ua.in.bibi.ecommerceonlineshopping.service.CategoriesService;
+import ua.in.bibi.ecommerceonlineshopping.service.GroupsService;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/category")
-public class CategoriesController {
+@RequestMapping("/group")
+public class GroupsController {
 
     @Autowired
-    private CategoriesService categoriesService;
+    private GroupsService groupsService;
+
 
     //    create
-//    @PostMapping("/categories")
+//    PostMapping("/group")
     @PostMapping
-    public CategoriesResponse create(@RequestBody @Valid CategoriesRequest categoriesRequest) {
-        return categoriesService.create(categoriesRequest);
+    public GroupsResponse create(@RequestBody @Valid GroupsRequest groupsRequest) {
+        return groupsService.create(groupsRequest);
     }
 
-    //    read  //in PublicController
-//    @GetMapping("/categories")
+    //    read
+//    @GetMapping
     @GetMapping("/all")
-    public List<CategoriesResponse> findAll() {
-        return categoriesService.findAll();
+    public List<GroupsResponse> findAll() {
+//        System.out.println("GET ALL BRANDS");
+        return groupsService.findAll();
     }
 
     @GetMapping
-    public DataResponse<CategoriesResponse> getCategoriesSortPaginationFindValue(
+    public DataResponse<GroupsResponse> getGroupsSortPaginationFindValue(
             @RequestParam(required = false) String value,
             @RequestParam Integer page,
             @RequestParam Integer size,
@@ -44,7 +46,7 @@ public class CategoriesController {
         if (page >= 0) {
             if (size > 0) {
 //                System.out.println("GET ALL BRANDS pageble");
-                return categoriesService.findAll(value, page, size, sortFieldName, direction);
+                return groupsService.findAll(value, page, size, sortFieldName, direction);
             } else {
                 throw new IllegalArgumentException("SIZE id must not be less than ONE!");
             }
@@ -55,40 +57,40 @@ public class CategoriesController {
     }
 
     @GetMapping("/{id}")
-    public CategoriesResponse getCategoryById(@PathVariable Long id) {
+    public GroupsResponse getGroupById(@PathVariable Long id) {
         if (id > 0) {
-//            System.out.println("Get brand by id : " + id);
-            return categoriesService.findOneById(id);
+//            System.out.println("Get group by id : " + id);
+            return groupsService.findOneById(id);
         } else {
             throw new IllegalArgumentException("ID must not be less than ONE!");
         }
     }
 
     //    update
-//    @PutMapping("/categories")
+//    @PutMapping("/group")
     @PutMapping
-    public CategoriesResponse update(@RequestBody @Valid CategoriesRequest categoriesRequest, @RequestParam Long id) throws WrongInputException {
+    public GroupsResponse update(@RequestBody @Valid GroupsRequest groupsRequest, @RequestParam Long id) throws WrongInputException {
         if (id > 0) {
-            return categoriesService.update(categoriesRequest, id);
+            return groupsService.update(groupsRequest, id);
         } else {
             throw new IllegalArgumentException("ID must not be less than ONE!");
         }
     }
 
-
     //    delete
-//    @DeleteMapping("/categories")
+//    @DeleteMapping("/group")
     @DeleteMapping
     public void delete(@RequestParam Long id) throws WrongInputException {
         if (id > 0) {
-            categoriesService.delete(id);
+            groupsService.delete(id);
         } else {
             throw new IllegalArgumentException("ID must not be less than ONE!");
         }
     }
 
-//    @PostMapping("/categoriespage")
-//    public DataResponse<CategoriesResponse> getPage(@RequestBody PaginationRequest paginationRequest) {
-//        return categoriesService.findAll(paginationRequest);
+
+//    @PostMapping("/grouppage")
+//    public DataResponse<GroupResponse> getPage(@RequestBody PaginationRequest paginationRequest) {
+//        return groupService.findAll(paginationRequest);
 //    }
 }

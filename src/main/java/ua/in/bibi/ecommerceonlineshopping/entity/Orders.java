@@ -1,12 +1,14 @@
 package ua.in.bibi.ecommerceonlineshopping.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -42,6 +44,10 @@ public class Orders {
 //@Column(name = "BIRTH_DATE")
 
     //    private Date datetime;
+//    @JsonFormat(pattern = "dd/MM/yyyy")
+//    private LocalDate dateCreated;
+
+
     @OneToOne
     private Users user;// not null
 
