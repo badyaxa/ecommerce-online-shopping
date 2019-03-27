@@ -121,77 +121,8 @@
 
 
                 <ul id="sideManu" class="nav nav-tabs nav-stacked">
-                    <div id="catPersonsCatSupcat"></div>
+                    <!--<div id="categoriesSupcategories"></div>-->
                 </ul>
-                <script>
-                    var mainUrl = "http://localhost:8080";
-
-                    getAllCatPersons();
-
-                    function getAllCatPersons() {
-                        $.ajax({
-                            url: mainUrl + "//category/all",
-                            type: "GET",
-                            contentType: "application/json",
-                            success: function (dataResponse) {
-                                setCatPersonsToTable(dataResponse.data);
-                                // setActionOnDeleteButtons();
-                            },
-                            error: function (error) {
-                                alert(error.message);
-                            }
-                        });
-                    }
-
-                    function setCatPersonsToTable(persons) {
-                        for (var i = 0; i < persons.length; i++) {
-                            if (persons[i].parentId == 0) {
-                                setCatPersonToBlockView(persons[i]);
-                            }
-                            setCatPersonToListView(persons[i]);
-                        }
-                    }
-
-
-                    function setCatPersonToBlockView(person) {
-                        var tableOfPersonsBlockView = $("#catPersonsCatSupcat");
-                        tableOfPersonsBlockView.append('<li class="subMenu open"><a>'
-                            + person.name
-                            + '.html"><img src="themes/images/products/3.jpg" alt=""/></a><div class="caption"><h5>'
-                            + person.name
-                            + '</h5><p> Description of '
-                            + person.brandName
-                            + '. I\'m a paragraph. Click here</p><h4 style="text-align:center"><a class="btn" href="product_details'
-                            + person.id
-                            + '.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="product_details'
-                            + person.id
-                            + '">&euro;222.00</a></h4></div></div></li>');
-                    }
-
-                    function setCatPersonToListView(person) {
-                        var tableOfPersonsListView = $("#catPersonsSl");
-                        tableOfPersonsListView.append('<div class="row"><div class="span2"><img src="themes/images/products/3.jpg" alt=""/></div><div class="span4"><h3>'
-                            + 'New | Available'
-                            + '</h3><hr class="soft"/><h5>'
-                            + person.name
-                            + '</h5><p>Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies -that is why our goods are so popular..</p><a class="btn btn-small pull-right" href="product_details'
-                            +
-                            +person.id
-                            + '.html">View Details</a><br class="clr"/></div><div class="span3 alignR"><form class="form-horizontal qtyFrm"><h3>'
-                            +
-                            +'person.Price'
-                            + '</h3><label class="checkbox"><input type="checkbox">  Adds product to compair</label><br/><a href="product_details'
-                            + person.id
-                            + '.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a><a href="product_details'
-                            + person.id
-                            + '.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>'
-                            +
-                            +'</form></div></div><hr class="soft"/>');
-                    }
-
-
-                </script>
-
 
                 <br/>
                 <div class="thumbnail">
@@ -336,6 +267,44 @@
 <script src="themes/js/jquery.lightbox-0.5.js"></script>
 
 <script>
+    mainUrl = "http://localhost:8080";
+
+    getAllCategories();
+
+    function getAllCategories() {
+        $.ajax({
+            url: mainUrl + "/category/all",
+            type: "GET",
+            contentType: "application/json",
+            success: function (dataCategoriesResponse) {
+                setCategoriesToTable(dataCategoriesResponse);
+            },
+            error: function (error) {
+                alert(error.message);
+            }
+        });
+    }
+
+    function setCategoriesToTable(categories) {
+        for (var i = 0; i < categories.length; i++) {
+            setCategoriesParentTable(categories[i]);
+        }
+    }
+
+    function setCategoriesParentTable(category) {
+        // var tableCategoriesSupcategories = $("#categoriesSupcategories");
+        var tableCategoriesSupcategories = $("#sideManu");
+
+        tableCategoriesSupcategories.append('<li><a href="category/' +
+            category.id +
+            '.html">' +
+            category.name +
+            '</a></li>');
+    }
+
+
+</script>
+<script>
     var mainUrl = "http://localhost:8080";
 
     getAllPersons();
@@ -479,6 +448,8 @@
 
 
 </script>
+
+
 <!-- Themes switcher section ============================================================================================= -->
 <div id="secectionBox">
     <link rel="stylesheet" href="themes/switch/themeswitch.css" type="text/css" media="screen"/>
