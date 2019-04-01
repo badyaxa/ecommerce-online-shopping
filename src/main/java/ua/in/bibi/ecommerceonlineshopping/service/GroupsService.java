@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.GroupsRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.GroupsResponse;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
-import ua.in.bibi.ecommerceonlineshopping.entity.user.Groups;
+import ua.in.bibi.ecommerceonlineshopping.entity.Groups;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
 import ua.in.bibi.ecommerceonlineshopping.repository.GroupsRepository;
 import ua.in.bibi.ecommerceonlineshopping.specification.GroupsSpecification;

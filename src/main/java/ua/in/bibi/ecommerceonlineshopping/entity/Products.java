@@ -1,11 +1,9 @@
-package ua.in.bibi.ecommerceonlineshopping.entity.product;
+package ua.in.bibi.ecommerceonlineshopping.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ua.in.bibi.ecommerceonlineshopping.entity.user.ProductToCartItem;
-import ua.in.bibi.ecommerceonlineshopping.entity.category.Categories;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

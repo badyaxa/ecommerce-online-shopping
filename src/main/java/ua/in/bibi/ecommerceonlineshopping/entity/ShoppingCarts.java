@@ -1,4 +1,4 @@
-package ua.in.bibi.ecommerceonlineshopping.entity.user;
+package ua.in.bibi.ecommerceonlineshopping.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.List;
 @ToString
 @Entity
 @Table(name = "user_cart")
-public class Cart {
+public class ShoppingCarts {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class Cart {
 //    @JsonIgnore
 //    private List<CartItems> userShoppingCartItems;
 
-    @OneToMany(mappedBy = "userShoppingCart", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "shoppingCarts", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @NotNull
     private List<CartItems> userShoppingCartItems;
 

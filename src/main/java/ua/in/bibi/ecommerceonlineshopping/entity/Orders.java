@@ -1,10 +1,9 @@
-package ua.in.bibi.ecommerceonlineshopping.entity.user;
+package ua.in.bibi.ecommerceonlineshopping.entity;
 
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ua.in.bibi.ecommerceonlineshopping.entity.order.PaymentMethods;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -42,7 +41,7 @@ public class Orders {
     private BillingAddress billingAddress;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private PaymentMethods payment;
+    private Payments payment;
 
     @ManyToOne
     private Users user;

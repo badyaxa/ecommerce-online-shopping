@@ -1,4 +1,4 @@
-package ua.in.bibi.ecommerceonlineshopping.entity.user;
+package ua.in.bibi.ecommerceonlineshopping.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,11 +12,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "user_billing_address")
+//@Table(name = "user_billing_address")
 public class BillingAddress {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String billingAddressName;
     private String billingAddressStreet1;

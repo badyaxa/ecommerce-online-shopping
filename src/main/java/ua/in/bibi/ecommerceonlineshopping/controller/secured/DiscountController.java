@@ -1,6 +1,6 @@
 //package com.commerce.backend.secured;
 //
-//import com.commerce.backend.model.Cart;
+//import com.commerce.backend.model.ShoppingCarts;
 //import com.commerce.backend.service.DiscountService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.HttpStatus;
@@ -25,8 +25,8 @@
 //
 //    @RequestMapping(value = "/cart/discount", method = RequestMethod.GET, params = "code")
 //    public ResponseEntity applyDiscount(@RequestParam("code") String code, Principal principal) {
-//        Cart cart = discountService.applyDiscount(principal, code);
-//        return new ResponseEntity<Cart>(cart, HttpStatus.OK);
+//        ShoppingCarts cart = discountService.applyDiscount(principal, code);
+//        return new ResponseEntity<ShoppingCarts>(cart, HttpStatus.OK);
 //    }
 //
 //}

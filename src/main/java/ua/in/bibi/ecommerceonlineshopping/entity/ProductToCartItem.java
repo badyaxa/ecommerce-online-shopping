@@ -1,11 +1,10 @@
-package ua.in.bibi.ecommerceonlineshopping.entity.user;
+package ua.in.bibi.ecommerceonlineshopping.entity;
 
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ua.in.bibi.ecommerceonlineshopping.entity.product.Products;
 
 import javax.persistence.*;
 

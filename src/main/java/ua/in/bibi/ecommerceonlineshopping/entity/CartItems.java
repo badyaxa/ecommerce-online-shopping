@@ -1,12 +1,9 @@
-package ua.in.bibi.ecommerceonlineshopping.entity.user;
+package ua.in.bibi.ecommerceonlineshopping.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ua.in.bibi.ecommerceonlineshopping.entity.product.Products;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -37,24 +34,25 @@ public class CartItems {
     private List<ProductToCartItem> productToCartItemList;
 
     @ManyToOne
-    @JoinColumn(name = "shopping_cart_id")
-    private Cart shoppingCart;
+    @JoinColumn(name = "cart_id")
+    private ShoppingCarts shoppingCarts;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Orders order;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "cart_id")
-    @JsonIgnoreProperties("cartItemList") //Prevents infinite recursion
-    @JsonIgnore
-    private Cart userShoppingCart;
+
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+//    @JoinColumn(name = "cart_id")
+//    @JsonIgnoreProperties("cartItemList") //Prevents infinite recursion
+//    @JsonIgnore
+//    private ShoppingCarts userShoppingCart;
 
 //    @ManyToOne //TODO one to many ??? many to many????
 //    @JoinColumn(name = "product_id")
 //    private ProductDisplay cartProduct;
 
-    @Column(name = "amount")
-    private Integer amount;
+//    @Column(name = "amount")
+//    private Integer amount;
 
 }

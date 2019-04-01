@@ -1,8 +1,9 @@
-package ua.in.bibi.ecommerceonlineshopping.entity.category;
+package ua.in.bibi.ecommerceonlineshopping.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ua.in.bibi.ecommerceonlineshopping.entity.Categories;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

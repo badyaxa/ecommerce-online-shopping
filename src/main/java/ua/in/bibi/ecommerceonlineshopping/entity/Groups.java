@@ -1,9 +1,8 @@
-package ua.in.bibi.ecommerceonlineshopping.entity.user;
+package ua.in.bibi.ecommerceonlineshopping.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ua.in.bibi.ecommerceonlineshopping.entity.user.Users;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;

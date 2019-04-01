@@ -3,7 +3,7 @@ package ua.in.bibi.ecommerceonlineshopping.dto.response;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ua.in.bibi.ecommerceonlineshopping.entity.user.Users;
+import ua.in.bibi.ecommerceonlineshopping.entity.Users;
 
 @Getter
 @Setter

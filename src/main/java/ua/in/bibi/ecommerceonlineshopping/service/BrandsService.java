@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.BrandsRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.BrandsResponse;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
-import ua.in.bibi.ecommerceonlineshopping.entity.product.Brands;
+import ua.in.bibi.ecommerceonlineshopping.entity.Brands;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
 import ua.in.bibi.ecommerceonlineshopping.repository.BrandsRepository;
 import ua.in.bibi.ecommerceonlineshopping.specification.BrandsSpecification;
