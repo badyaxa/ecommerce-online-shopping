@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.BrandsRequest;
+import ua.in.bibi.ecommerceonlineshopping.dto.request.PaginationRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.BrandsResponse;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
@@ -28,15 +29,20 @@ public class BrandsController {
         return brandsService.create(brandsRequest);
     }
 
+//    @PostMapping("/page")
+//    public DataResponse<BrandsResponse> getPage(@RequestBody PaginationRequest paginationRequest) {
+//        return brandsService.findAll(paginationRequest);
+//    }
+
     //    read
 //    @GetMapping
-    @GetMapping("/all")
-    public List<BrandsResponse> findAll() {
+//    @GetMapping("/all")
+//    public List<BrandsResponse> findAll() {
 //        System.out.println("GET ALL BRANDS");
-        return brandsService.findAll();
-    }
+//        return brandsService.findAll();
+//    }
 
-    @GetMapping
+    @GetMapping("/list")
     public DataResponse<BrandsResponse> getBrandsSortPaginationFindValue(
             @RequestParam(required = false) String value,
             @RequestParam Integer page,
@@ -88,9 +94,4 @@ public class BrandsController {
         }
     }
 
-
-//    @PostMapping("/brandpage")
-//    public DataResponse<BrandResponse> getPage(@RequestBody PaginationRequest paginationRequest) {
-//        return brandService.findAll(paginationRequest);
-//    }
 }

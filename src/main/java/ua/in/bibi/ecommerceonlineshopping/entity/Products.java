@@ -76,7 +76,12 @@ private List<Categories> category = new ArrayList<>();
     //private String annotation;// not null
 
 //    private String body;// not null
-//    private Boolean visible;// not null default 1
+
+
+    //    private Boolean visible;// not null default 1
+    private boolean active = true;
+
+
 //    private Integer position;// not null
 //    private String meta_title;// not null
 //    private String meta_keywords;// not null

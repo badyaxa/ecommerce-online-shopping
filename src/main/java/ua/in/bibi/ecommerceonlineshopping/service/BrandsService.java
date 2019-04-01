@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.BrandsRequest;
+import ua.in.bibi.ecommerceonlineshopping.dto.request.PaginationRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.BrandsResponse;
 import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.entity.Brands;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 public class BrandsService {
 
     @Autowired
-    private BrandsRepository usersRepository;
+    private BrandsRepository brandsRepository;
 
 
     //    create
@@ -33,24 +34,28 @@ public class BrandsService {
 
     //    read
     public List<BrandsResponse> findAll() {
-        return usersRepository
+        return brandsRepository
                 .findAll()
                 .stream()
                 .map(BrandsResponse::new)
                 .collect(Collectors.toList());
     }
+//    public DataResponse<BrandsResponse> findAll(PaginationRequest pagination) {
+//        Page<Brands> all = brandsRepository.findAll(pagination.mapToPageRequest());
+//        return new DataResponse<>(all.get().map(BrandsResponse::new).collect(Collectors.toList()), all.getTotalPages(), all.getTotalElements());
+//    }
 
     public DataResponse<BrandsResponse> findAll(String value, Integer page, Integer size, String fieldName, Sort.Direction direction) {
         Sort sort = Sort.by(direction, fieldName);
         PageRequest pageRequest = PageRequest.of(page, size, sort);
-        Page<Brands> usersPage;
+        Page<Brands> brandsPage;
         if (value != null && !value.equals("")) {
             BrandsSpecification specification = new BrandsSpecification(value);
-            usersPage = usersRepository.findAll(specification, pageRequest);
+            brandsPage = brandsRepository.findAll(specification, pageRequest);
         } else {
-            usersPage = usersRepository.findAll(pageRequest);
+            brandsPage = brandsRepository.findAll(pageRequest);
         }
-        return new DataResponse<BrandsResponse>(usersPage.stream().map(BrandsResponse::new).collect(Collectors.toList()), usersPage);
+        return new DataResponse<BrandsResponse>(brandsPage.stream().map(BrandsResponse::new).collect(Collectors.toList()), brandsPage);
     }
 
 
@@ -62,48 +67,43 @@ public class BrandsService {
 
     //    delete
     public void delete(Long id) throws WrongInputException {
-        usersRepository.delete(findOne(id));
-//        usersRepository.deleteById(id);
+        brandsRepository.delete(findOne(id));
+//        brandsRepository.deleteById(id);
     }
 
 
     public Brands findOne(Long id) throws WrongInputException {
-        return usersRepository
+        return brandsRepository
                 .findById(id)
                 .orElseThrow(() -> new WrongInputException("Brand with id " + id + " not exists"));
     }
 
     @Transactional
     public BrandsResponse findOneById(Long id) {
-        Optional<Brands> usersOptional = usersRepository.findById(id);
-        if (usersOptional.isPresent()) {
-            return new BrandsResponse(usersOptional.get());
+        Optional<Brands> brandsOptional = brandsRepository.findById(id);
+        if (brandsOptional.isPresent()) {
+            return new BrandsResponse(brandsOptional.get());
         } else {
             throw new IllegalArgumentException("Brand with id " + id + " not found");
         }
     }
 
 
-    private Brands userRequestToBrand(BrandsRequest request, Brands user) {
-        if (user == null) {
-            user = new Brands();
+    private Brands userRequestToBrand(BrandsRequest request, Brands brand) {
+        if (brand == null) {
+            brand = new Brands();
         }
-        user.setName(request.getName());
-        return usersRepository.save(user);
+        brand.setName(request.getName());
+        return brandsRepository.save(brand);
     }
 
-//    @GetMapping("/users")
+//    @GetMapping("/brands")
 //    public List<BrandResponse> findAllBrands() {
 //        return userService.findAll();
 //    }
-//    @GetMapping("/users")
+//    @GetMapping("/brands")
 //    public Iterable<Brands> getAllB() {
-//        return usersRepository.findAll();
-//    }
-
-//    public DataResponse<CountryResponse> findAll(PaginationRequest pagination) {
-//        Page<Country> all = countryRepository.findAll(pagination.mapToPageRequest());
-//        return new DataResponse<>(all.get().map(CountryResponse::new).collect(Collectors.toList()), all.getTotalPages(), all.getTotalElements());
+//        return brandsRepository.findAll();
 //    }
 
 }

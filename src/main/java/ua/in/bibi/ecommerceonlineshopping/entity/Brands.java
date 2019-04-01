@@ -1,5 +1,6 @@
 package ua.in.bibi.ecommerceonlineshopping.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.*;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
-
+//@AllArgsConstructor
 @Entity
 @Table(name = "product_brands")
 public class Brands {
@@ -54,20 +55,4 @@ public class Brands {
 //    @Column(name = "image")
 //    private String brandImage;// not null
 
-    public List<Products> getProduct() {
-        return product;
-    }
-
-    public void setProduct(List<Products> product) {
-        this.product = product;
-    }
-
-    @Override
-    public String toString() {
-        return "Brands{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", product=" + product +
-                '}';
-    }
 }

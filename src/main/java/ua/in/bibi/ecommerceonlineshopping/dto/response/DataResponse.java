@@ -1,6 +1,8 @@
 package ua.in.bibi.ecommerceonlineshopping.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
 
@@ -19,8 +21,6 @@ public class DataResponse<T> {
 
     private Long totalElements;
 
-    public DataResponse() {
-    }
 
     public DataResponse(List<T> data, Page page) {
         this.data = data;

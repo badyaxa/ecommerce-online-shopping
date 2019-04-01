@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<style>
+    .container {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+
+    .product {
+        width: 31%;
+        margin-bottom: 40px;
+    }
+
+    .product-image {
+        width: 100%;
+    }
+</style>
+
+<div class="container">
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+    makeRequest();
+
+    // $('#pagination-confirm').click(makeRequest);
+
+    $('#page').change(makeRequest);
+    $('#size').change(makeRequest);
+    $('#direction').change(makeRequest);
+
+    function makeRequest() {
+        $.ajax({
+            url: 'http://localhost:8080/brand/list',
+            type: 'GET',
+            contentType: 'application/json',
+            data: JSON.stringify(getPaginationRequest()),
+            success: function (res) {
+                // appendCarsToContainer(res.content)
+                console.log(res)
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+    }
+
+    function appendCarsToContainer(cars) {
+        let $container = $('.container');
+        $container.html('');
+        for (let car of cars) {
+            let img = car.pathToImage ?
+                'http://localhost:8080/img/' + car.pathToImage
+                : 'http://denrakaev.com/wp-content/uploads/2015/03/no-image.png';
+            $container.append(`
+                <div class="product">
+                    <h3 class="product-title">
+                        ${car.name}
+                    </h3>
+                    <img class="product-image" src="${img}">
+                    <p class="product-country">${car.countryName}</p>
+                    <p class="product-volume">${car.volume}</p>
+                    <p class="product-price">$${car.price}</p>
+                </div>
+            `)
+        }
+    }
+
+
+    function getPaginationRequest() {
+        console.log({
+            page: $('#page').val() - 1,
+            size: $('#size').val(),
+            direction: $('#direction').val(),
+            sortFieldName: 'name'
+        });
+        return {
+            page: $('#page').val() - 1,
+            size: $('#size').val(),
+            direction: $('#direction').val(),
+            sortFieldName: 'name'
+        };
+    }
+
+
+    <
+    /body>
+    < /html>;
