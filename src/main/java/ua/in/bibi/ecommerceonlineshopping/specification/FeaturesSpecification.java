@@ -1,7 +1,7 @@
 package ua.in.bibi.ecommerceonlineshopping.specification;
 
 import org.springframework.data.jpa.domain.Specification;
-import ua.in.bibi.ecommerceonlineshopping.entity.Features;
+import ua.in.bibi.ecommerceonlineshopping.entity.category.Features;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

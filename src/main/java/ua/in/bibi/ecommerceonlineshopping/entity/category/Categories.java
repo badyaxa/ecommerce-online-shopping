@@ -1,13 +1,11 @@
-package ua.in.bibi.ecommerceonlineshopping.entity;
+package ua.in.bibi.ecommerceonlineshopping.entity.category;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.bytebuddy.implementation.bind.annotation.Default;
+import ua.in.bibi.ecommerceonlineshopping.entity.product.Products;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;

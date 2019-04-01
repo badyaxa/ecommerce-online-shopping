@@ -1,8 +1,10 @@
-package ua.in.bibi.ecommerceonlineshopping.entity;
+package ua.in.bibi.ecommerceonlineshopping.entity.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ua.in.bibi.ecommerceonlineshopping.entity.product.Products;
+import ua.in.bibi.ecommerceonlineshopping.entity.product.Variants;
 
 import javax.persistence.*;
 
@@ -11,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "purchases_t")
+@Table(name = "user_purchases")
 public class Purchases {
 
     @Id

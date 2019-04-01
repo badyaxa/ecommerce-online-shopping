@@ -1,4 +1,4 @@
-package ua.in.bibi.ecommerceonlineshopping.entity;
+package ua.in.bibi.ecommerceonlineshopping.entity.order;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "currencies")
+@Table(name = "payment_method_currencies")
 public class Currencies {
 
     @Id

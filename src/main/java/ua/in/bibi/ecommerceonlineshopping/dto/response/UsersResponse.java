@@ -1,10 +1,9 @@
 package ua.in.bibi.ecommerceonlineshopping.dto.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ua.in.bibi.ecommerceonlineshopping.entity.Users;
+import ua.in.bibi.ecommerceonlineshopping.entity.user.Users;
 
 @Getter
 @Setter

@@ -1,4 +1,4 @@
-package ua.in.bibi.ecommerceonlineshopping.entity;
+package ua.in.bibi.ecommerceonlineshopping.entity.category;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "features")
+@Table(name = "category_features")
 public class Features {
 
     @Id

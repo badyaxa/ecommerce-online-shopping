@@ -1,9 +1,11 @@
-package ua.in.bibi.ecommerceonlineshopping.entity;
+package ua.in.bibi.ecommerceonlineshopping.entity.product;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ua.in.bibi.ecommerceonlineshopping.entity.user.ProductToCartItem;
+import ua.in.bibi.ecommerceonlineshopping.entity.category.Categories;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,8 +13,8 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @ToString
 @Entity
@@ -50,8 +52,16 @@ private List<Categories> category = new ArrayList<>();
     private String url;// not null
 
 
+    @OneToMany(mappedBy = "product")
+//    @JsonIgnore
+    private List<ProductToCartItem> productToCartItemList;
+
+
 //    @OneToMany(mappedBy = "product")
-//    private List<Images> image = new ArrayList<>();
+//    priva
+
+    @OneToMany(mappedBy = "product")
+    private List<Variants> variants = new ArrayList<>();
 
 
 

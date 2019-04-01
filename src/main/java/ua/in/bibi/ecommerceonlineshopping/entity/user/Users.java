@@ -1,4 +1,4 @@
-package ua.in.bibi.ecommerceonlineshopping.entity;
+package ua.in.bibi.ecommerceonlineshopping.entity.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +37,7 @@ public class Users {
 
     @ManyToOne
     private Groups group;  // not null
+
 
 //    @Column(name = "enabled")
 //    private Boolean enabled;// not null  TINYINT

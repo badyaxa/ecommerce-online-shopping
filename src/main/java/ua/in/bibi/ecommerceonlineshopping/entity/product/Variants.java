@@ -1,8 +1,9 @@
-package ua.in.bibi.ecommerceonlineshopping.entity;
+package ua.in.bibi.ecommerceonlineshopping.entity.product;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ua.in.bibi.ecommerceonlineshopping.entity.product.Products;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -14,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "variants_t")
+@Table(name = "product_variants")
 public class Variants {
 
 
@@ -22,7 +23,7 @@ public class Variants {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     private Products product;
 
     @Column(name = "sku")

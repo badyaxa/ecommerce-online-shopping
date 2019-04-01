@@ -1,11 +1,11 @@
-package ua.in.bibi.ecommerceonlineshopping.entity;
+package ua.in.bibi.ecommerceonlineshopping.entity.product;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ua.in.bibi.ecommerceonlineshopping.entity.product.Products;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 
 @Setter
@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "images")
+@Table(name = "product_images")
 public class Images {
 
     @Id

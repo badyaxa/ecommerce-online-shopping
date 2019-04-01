@@ -1,8 +1,9 @@
-package ua.in.bibi.ecommerceonlineshopping.entity;
+package ua.in.bibi.ecommerceonlineshopping.entity.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ua.in.bibi.ecommerceonlineshopping.entity.user.Users;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "users_groups")
+@Table(name = "user_groups")
 public class Groups {
 
     @Id

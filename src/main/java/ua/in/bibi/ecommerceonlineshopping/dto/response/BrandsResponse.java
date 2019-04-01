@@ -3,7 +3,7 @@ package ua.in.bibi.ecommerceonlineshopping.dto.response;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ua.in.bibi.ecommerceonlineshopping.entity.Brands;
+import ua.in.bibi.ecommerceonlineshopping.entity.product.Brands;
 
 @Getter
 @Setter

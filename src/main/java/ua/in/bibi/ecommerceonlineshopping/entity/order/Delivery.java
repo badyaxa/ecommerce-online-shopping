@@ -1,4 +1,4 @@
-package ua.in.bibi.ecommerceonlineshopping.entity;
+package ua.in.bibi.ecommerceonlineshopping.entity.order;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

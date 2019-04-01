@@ -1,4 +1,4 @@
-package ua.in.bibi.ecommerceonlineshopping.entity;
+package ua.in.bibi.ecommerceonlineshopping.entity.product;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "brands")
+@Table(name = "product_brands")
 public class Brands {
 
     @Id
