@@ -1,12 +1,14 @@
-package ua.in.bibi.ecommerceonlineshopping.controller.api;
+package ua.in.bibi.ecommerceonlineshopping.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @CrossOrigin
 @Controller
 //@RestController
+@RequestMapping
 public class HomeController {
 
 //    @GetMapping("/")
@@ -14,8 +16,14 @@ public class HomeController {
 //        return "It is ecommerce online shop";
 //    }
 
+    @GetMapping
+//    @RequestMapping("/")
+    public String index() {
+        return "redirect:index";
+    }
+
     //    @RequestMapping("/")
-    @GetMapping("/")
+    @GetMapping("/index")
     public String home() {
         return "index";
     }
@@ -59,4 +67,21 @@ public class HomeController {
     public String register() {
         return "register";
     }
+
+
+    @GetMapping("/brands")
+    public String showBrandsPage() {
+        return "brands";
+    }
+
+    @GetMapping("/categories")
+    public String showCategoriesPage() {
+        return "categories";
+    }
+
+    @GetMapping("/products")
+    public String showProductsPage() {
+        return "products";
+    }
+
 }

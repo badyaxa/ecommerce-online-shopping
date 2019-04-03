@@ -11,20 +11,20 @@ import java.util.List;
 
 @Getter
 @Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class DataResponse<T> {
 
-    private List<T> data = new ArrayList<>();
+    private List<T> content;
 
     private Integer totalPages;
 
     private Long totalElements;
 
 
-    public DataResponse(List<T> data, Page page) {
-        this.data = data;
-        this.totalPages = page.getTotalPages();
-        this.totalElements = page.getTotalElements();
-    }
+//    public DataResponse(List<T> data, Page page) {
+//        this.data = data;
+//        this.totalPages = page.getTotalPages();
+//        this.totalElements = page.getTotalElements();
+//    }
 }

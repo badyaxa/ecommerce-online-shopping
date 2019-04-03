@@ -2,8 +2,6 @@ package ua.in.bibi.ecommerceonlineshopping.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.BrandsRequest;
@@ -13,7 +11,6 @@ import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.entity.Brands;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
 import ua.in.bibi.ecommerceonlineshopping.repository.BrandsRepository;
-import ua.in.bibi.ecommerceonlineshopping.specification.BrandsSpecification;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,49 +23,35 @@ public class BrandsService {
     private BrandsRepository brandsRepository;
 
 
-    //    create
+    //////////////////create//////////////////
     public BrandsResponse create(BrandsRequest request) {
-        return new BrandsResponse(userRequestToBrand(request, null));
+        return new BrandsResponse(brandRequestToBrand(request, null));
     }
 
 
-    //    read
+    //////////////////read//////////////////
     public List<BrandsResponse> findAll() {
-        return brandsRepository
-                .findAll()
-                .stream()
+        return brandsRepository.findAll().stream()
                 .map(BrandsResponse::new)
                 .collect(Collectors.toList());
     }
-//    public DataResponse<BrandsResponse> findAll(PaginationRequest pagination) {
-//        Page<Brands> all = brandsRepository.findAll(pagination.mapToPageRequest());
-//        return new DataResponse<>(all.get().map(BrandsResponse::new).collect(Collectors.toList()), all.getTotalPages(), all.getTotalElements());
-//    }
-
-    public DataResponse<BrandsResponse> findAll(String value, Integer page, Integer size, String fieldName, Sort.Direction direction) {
-        Sort sort = Sort.by(direction, fieldName);
-        PageRequest pageRequest = PageRequest.of(page, size, sort);
-        Page<Brands> brandsPage;
-        if (value != null && !value.equals("")) {
-            BrandsSpecification specification = new BrandsSpecification(value);
-            brandsPage = brandsRepository.findAll(specification, pageRequest);
-        } else {
-            brandsPage = brandsRepository.findAll(pageRequest);
-        }
-        return new DataResponse<BrandsResponse>(brandsPage.stream().map(BrandsResponse::new).collect(Collectors.toList()), brandsPage);
-    }
 
 
-    //    update
+    //////////////////update//////////////////
     public BrandsResponse update(BrandsRequest request, Long id) throws WrongInputException {
-        return new BrandsResponse(userRequestToBrand(request, findOne(id)));
+        return new BrandsResponse(brandRequestToBrand(request, findOne(id)));
     }
 
 
-    //    delete
+    //////////////////delete//////////////////
     public void delete(Long id) throws WrongInputException {
         brandsRepository.delete(findOne(id));
 //        brandsRepository.deleteById(id);
+    }
+
+    public DataResponse<BrandsResponse> findAll(PaginationRequest pagination) {
+        Page<Brands> all = brandsRepository.findAll(pagination.mapToPageRequest());
+        return new DataResponse<>(all.get().map(BrandsResponse::new).collect(Collectors.toList()), all.getTotalPages(), all.getTotalElements());
     }
 
 
@@ -77,6 +60,7 @@ public class BrandsService {
                 .findById(id)
                 .orElseThrow(() -> new WrongInputException("Brand with id " + id + " not exists"));
     }
+
 
     @Transactional
     public BrandsResponse findOneById(Long id) {
@@ -89,7 +73,7 @@ public class BrandsService {
     }
 
 
-    private Brands userRequestToBrand(BrandsRequest request, Brands brand) {
+    private Brands brandRequestToBrand(BrandsRequest request, Brands brand) {
         if (brand == null) {
             brand = new Brands();
         }
@@ -104,6 +88,20 @@ public class BrandsService {
 //    @GetMapping("/brands")
 //    public Iterable<Brands> getAllB() {
 //        return brandsRepository.findAll();
+//    }
+
+
+//    public DataResponse<BrandsResponse> findAll(String value, Integer page, Integer size, String fieldName, Sort.Direction direction) {
+//        Sort sort = Sort.by(direction, fieldName);
+//        PageRequest pageRequest = PageRequest.of(page, size, sort);
+//        Page<Brands> brandsPage;
+//        if (value != null && !value.equals("")) {
+//            BrandsSpecification specification = new BrandsSpecification(value);
+//            brandsPage = brandsRepository.findAll(specification, pageRequest);
+//        } else {
+//            brandsPage = brandsRepository.findAll(pageRequest);
+//        }
+//        return new DataResponse<BrandsResponse>(brandsPage.stream().map(BrandsResponse::new).collect(Collectors.toList()), brandsPage);
 //    }
 
 }

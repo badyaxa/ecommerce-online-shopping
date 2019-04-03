@@ -18,7 +18,7 @@ public class PaginationRequest {
         if (sortRequest == null) {
             return PageRequest.of(page, size);
         } else {
-            return PageRequest.of(page, size, Sort.by(sortRequest.getDirection(), sortRequest.getFieldName()));
+            return PageRequest.of(page, size, Sort.by(sortRequest.getDirection(), sortRequest.getField()));
         }
     }
 }

@@ -1,9 +1,7 @@
 package ua.in.bibi.ecommerceonlineshopping.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,19 +12,26 @@ import javax.validation.constraints.*;
 @Setter
 @NoArgsConstructor
 //@AllArgsConstructor
+@ToString(exclude = "product")
 @Entity
 @Table(name = "product_brands")
 public class Brands {
+
+//    @Id
+//    @GeneratedValue(generator = "uuid")
+//    @GenericGenerator(name = "uuid", strategy = "uuid2")
+//    private String id;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
+
 //    @NotNull
     @NotBlank(message = "Brand name must not be empty")
     @Size(min = 2, max = 50)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;// not null
 
     //    @Qualifier( "id been") // использование уникального для Spring.

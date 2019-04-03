@@ -6,7 +6,9 @@ import org.springframework.data.domain.Sort;
 
 @Getter @Setter
 public class SortRequest {
-    private String fieldName;
 
     private Sort.Direction direction;
+
+    private String field;
+
 }

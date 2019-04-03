@@ -73,8 +73,8 @@
                     <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
                 </form>
                 <ul id="topMenu" class="nav pull-right">
-                    <li class=""><a href="special_offer.html">Specials Offer</a></li>
-                    <li class=""><a href="normal.html">Delivery</a></li>
+                    <li class=""><a href="brands">Specials Offer</a></li>
+                    <li class=""><a href="categories">Delivery</a></li>
                     <li class=""><a href="contact.html">Contact</a></li>
                     <li class="">
                         <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span
@@ -267,13 +267,13 @@
 <script src="themes/js/jquery.lightbox-0.5.js"></script>
 
 <script>
-    mainUrl = "http://localhost:8080";
+    apiUrl = "http://localhost/api";
 
     getAllCategories();
 
     function getAllCategories() {
         $.ajax({
-            url: mainUrl + "/category/all",
+            url: apiUrl + "/categories/all",
             type: "GET",
             contentType: "application/json",
             success: function (dataCategoriesResponse) {
@@ -295,9 +295,10 @@
         // var tableCategoriesSupcategories = $("#categoriesSupcategories");
         var tableCategoriesSupcategories = $("#sideManu");
 
-        tableCategoriesSupcategories.append('<li><a href="category/' +
+        tableCategoriesSupcategories.append('<li><a href="/api/categories/' +
             category.id +
-            '.html">' +
+            // '.html">' +
+            '">' +
             category.name +
             '</a></li>');
     }
@@ -305,13 +306,13 @@
 
 </script>
 <script>
-    var mainUrl = "http://localhost:8080";
+    var apiUrl = "http://localhost/api";
 
     getAllPersons();
 
     function getAllPersons() {
         $.ajax({
-            url: mainUrl + "/product?direction=ASC&page=0&size=6&sortFieldName=name",
+            url: apiUrl + "/products?direction=ASC&page=0&size=6&sortFieldName=name",
             type: "GET",
             contentType: "application/json",
             success: function (dataResponse) {
@@ -372,7 +373,7 @@
         $(".button").each(function (index) {
             $(this).click(function () {
                 $.ajax({
-                    url: mainUrl + "/person/" + $(this).val(),
+                    url: apiUrl + "/person/" + $(this).val(),
                     type: "DELETE",
                     success: function (data) {
                         location.reload();
@@ -401,7 +402,7 @@
             };
 
             $.ajax({
-                url: mainUrl + "/person",
+                url: apiUrl + "/person",
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(newPerson),
