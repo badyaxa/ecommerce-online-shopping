@@ -1,17 +1,16 @@
 package ua.in.bibi.ecommerceonlineshopping.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.in.bibi.ecommerceonlineshopping.service.BrandsService;
 
-import java.security.Principal;
-
 @CrossOrigin
 @RestController
+//@Controller
 @RequestMapping("/admin")
 public class AdminHomeController {
 
@@ -44,6 +43,7 @@ public class AdminHomeController {
 //    }
 
     @GetMapping("/brands")
+//    @RequestMapping("/brands")
     public String showBrandsPage() {
         return htmlPagePath + "brands";
     }

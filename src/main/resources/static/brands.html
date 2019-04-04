@@ -1,103 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>LIST BRANDS</title>
+	<meta charset="UTF-8">
+	<title>LIST BRANDS</title>
+	<style>
+		.container {
+			display: flex;
+			justify-content: space-evenly;
+			flex-wrap: wrap;
+		}
 
-    <style>
-        .container {
-            display: flex;
-            justify-content: space-evenly;
-            flex-wrap: wrap;
-        }
+		.item {
+			width: 31%;
+			margin-bottom: 40px;
+		}
 
-        .item {
-            width: 31%;
-            margin-bottom: 40px;
-        }
-
-        .item-image {
-            width: 100%;
-        }
-    </style>
-
-    <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
+		.item-image {
+			width: 100%;
+		}
+	</style>
+	<link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
 </head>
+
 <body>
-
-
 <div class="controllers">
-    <div class="pagination">
-
-        <select id="size">
-            <option value="6">6</option>
-            <option value="9">9</option>
-            <option value="12">12</option>
-        </select>
-
-        <select id="direction">
-            <option value="ASC">name A - Z</option>
-            <option value="DESC">name Z - A</option>
-        </select>
-        <input type="text" id="page" value="1">
-        <ul>
-            <li>
-                <button id="pagePlus0">1</button>
-            </li>
-            <li>
-                <button id="pagePlus1">2</button>
-            </li>
-            <li>
-                <button id="pagePlus2">3</button>
-            </li>
-            <li>
-                <button id="pagePlus3">4</button>
-            </li>
-            <li>
-                <button id="pagePlus4">5</button>
-            </li>
-        </ul>
-    </div>
+	<div class="pagination">
+		<select id="size">
+			<option value="6">6</option>
+			<option value="9">9</option>
+			<option value="12">12</option>
+		</select>
+		<select id="direction">
+			<option value="ASC">name A - Z</option>
+			<option value="DESC">name Z - A</option>
+		</select>
+		<input type="text" id="page" value="1">
+		<ul>
+			<li>
+				<button id="pagePlus0">1</button>
+			</li>
+			<li>
+				<button id="pagePlus1">2</button>
+			</li>
+			<li>
+				<button id="pagePlus2">3</button>
+			</li>
+			<li>
+				<button id="pagePlus3">4</button>
+			</li>
+			<li>
+				<button id="pagePlus4">5</button>
+			</li>
+		</ul>
+	</div>
 </div>
-
-
-<div class="container">
-</div>
-
-
+<div class="container"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
 <script>
-    makeRequest();
+	makeRequest();
+	$('#page').change(makeRequest);
+	$('#size').change(makeRequest);
+	$('#direction').change(makeRequest);
 
-    $('#page').change(makeRequest);
-    $('#size').change(makeRequest);
-    $('#direction').change(makeRequest);
+	function makeRequest() {
+		$.ajax({
+			url: 'http://localhost/api/brands/page'
+			, type: 'POST'
+			, contentType: 'application/json'
+			, data: JSON.stringify(getPaginationRequest())
+			, success: function (res) {
+				console.log(res);
+				appendCarsToContainer(res.content)
+			}
+			, error: function (e) {
+				console.log(e)
+			}
+		})
+	}
 
-    function makeRequest() {
-        $.ajax({
-            url: 'http://localhost/api/brands/page',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(getPaginationRequest()),
-            success: function (res) {
-                appendCarsToContainer(res.content)
-            },
-            error: function (e) {
-                console.log(e)
-            }
-        })
-    }
-
-    function appendCarsToContainer(items) {
-        let $container = $('.container');
-        $container.html('');
-        for (let item of items) {
-            let img = item.pathToImage ?
-                'http://localhost:8080/img/' + item.pathToImage
-                : 'http://denrakaev.com/wp-content/uploads/2015/03/no-image.png';
-            $container.append(`
+	function appendCarsToContainer(items) {
+		let $container = $('.container');
+		$container.html('');
+		for (let item of items) {
+			let img = item.pathToImage ? 'http://localhost:8080/img/' + item.pathToImage : 'http://denrakaev.com/wp-content/uploads/2015/03/no-image.png';
+			$container.append(`
                     <div class="item">
                          <a href="http://localhost/brand/${item.id}">
                             <h3 class="item-title">
@@ -108,42 +95,41 @@
                         </a>
                     </div>
             `)
-        }
-    }
+		}
+	}
 
-    function getPaginationRequest() {
-        return {
-            page: $('#page').val() - 1,
-            size: $('#size').val(),
-            sortRequest: {
-                field: 'name',
-                direction: $('#direction').val()
-            }
-        };
-    }
+	function getPaginationRequest() {
+		return {
+			page: $('#page').val() - 1
+			, size: $('#size').val()
+			, sortRequest: {
+				field: 'name'
+				, direction: $('#direction').val()
+			}
+		};
+	}
 
-
-    $('#pagePlus0').click(() = > {$('#page';
-    ).val(1);
-    makeRequest();
-    })
-    $('#pagePlus1').click(() = > {$('#page';
-    ).val(2);
-    makeRequest();
-    })
-    $('#pagePlus2').click(() = > {$('#page';
-    ).val(3);
-    makeRequest();
-    })
-    $('#pagePlus3').click(() = > {$('#page';
-    ).val(4);
-    makeRequest();
-    })
-    $('#pagePlus4').click(() = > {$('#page';
-    ).val(5);
-    makeRequest();
-    })
+	//		$('#pagePlus0').click(() = > {
+	//			$('#page').val(1);
+	//			makeRequest()
+	//		});
+	//		$('#pagePlus1').click(() = > {
+	//			$('#page').val(2);
+	//			makeRequest()
+	//		});
+	//		$('#pagePlus2').click(() = > {
+	//			$('#page').val(3);
+	//			makeRequest()
+	//		});
+	//		$('#pagePlus3').click(() = > {
+	//			$('#page').val(4);
+	//			makeRequest()
+	//		});
+	//		$('#pagePlus4').click(() = > {
+	//			$('#page').val(5);
+	//			makeRequest()
+	//		});
 </script>
-
 </body>
+
 </html>

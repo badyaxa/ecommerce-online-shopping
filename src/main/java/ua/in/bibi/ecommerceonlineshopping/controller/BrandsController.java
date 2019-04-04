@@ -1,6 +1,7 @@
 package ua.in.bibi.ecommerceonlineshopping.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.BrandsRequest;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.PaginationRequest;
@@ -10,6 +11,7 @@ import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
 import ua.in.bibi.ecommerceonlineshopping.service.BrandsService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -37,9 +39,24 @@ public class BrandsController {
         }
     }
 
+    @GetMapping
+    public DataResponse<BrandsResponse> getBrands(@RequestParam(required = false) String value,
+                                                  @RequestParam Integer page,
+                                                  @RequestParam Integer size,
+                                                  @RequestParam String sortFieldName,
+                                                  @RequestParam Sort.Direction direction) {
+        return brandsService.findAll(value, page, size, sortFieldName, direction);
+    }
+
     @PostMapping("/page")
     public DataResponse<BrandsResponse> getPage(@RequestBody PaginationRequest paginationRequest) {
         return brandsService.findAll(paginationRequest);
+    }
+
+
+    @GetMapping("/all")
+    public List<BrandsResponse> findAll() {
+        return brandsService.findAll();
     }
 
 

@@ -22,9 +22,9 @@ public class DataResponse<T> {
     private Long totalElements;
 
 
-//    public DataResponse(List<T> data, Page page) {
-//        this.data = data;
-//        this.totalPages = page.getTotalPages();
-//        this.totalElements = page.getTotalElements();
-//    }
+    public DataResponse(List<T> data, Page page) {
+        this.content = data;
+        this.totalPages = page.getTotalPages();
+        this.totalElements = page.getTotalElements();
+    }
 }

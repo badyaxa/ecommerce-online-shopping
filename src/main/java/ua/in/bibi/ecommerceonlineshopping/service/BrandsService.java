@@ -2,6 +2,8 @@ package ua.in.bibi.ecommerceonlineshopping.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.in.bibi.ecommerceonlineshopping.dto.request.BrandsRequest;
@@ -11,6 +13,7 @@ import ua.in.bibi.ecommerceonlineshopping.dto.response.DataResponse;
 import ua.in.bibi.ecommerceonlineshopping.entity.Brands;
 import ua.in.bibi.ecommerceonlineshopping.exception.WrongInputException;
 import ua.in.bibi.ecommerceonlineshopping.repository.BrandsRepository;
+import ua.in.bibi.ecommerceonlineshopping.specification.BrandsSpecification;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +37,19 @@ public class BrandsService {
         return brandsRepository.findAll().stream()
                 .map(BrandsResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    public DataResponse<BrandsResponse> findAll(String value, Integer page, Integer size, String fieldName, Sort.Direction direction) {
+        Sort sort = Sort.by(direction, fieldName);
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
+        Page<Brands> pagePerson;
+        if (value != null && !value.equals("")) {
+            BrandsSpecification specification = new BrandsSpecification(value);
+            pagePerson = brandsRepository.findAll(specification, pageRequest);
+        } else {
+            pagePerson = brandsRepository.findAll(pageRequest);
+        }
+        return new DataResponse<BrandsResponse>(pagePerson.stream().map(BrandsResponse::new).collect(Collectors.toList()), pagePerson);
     }
 
 
@@ -90,18 +106,5 @@ public class BrandsService {
 //        return brandsRepository.findAll();
 //    }
 
-
-//    public DataResponse<BrandsResponse> findAll(String value, Integer page, Integer size, String fieldName, Sort.Direction direction) {
-//        Sort sort = Sort.by(direction, fieldName);
-//        PageRequest pageRequest = PageRequest.of(page, size, sort);
-//        Page<Brands> brandsPage;
-//        if (value != null && !value.equals("")) {
-//            BrandsSpecification specification = new BrandsSpecification(value);
-//            brandsPage = brandsRepository.findAll(specification, pageRequest);
-//        } else {
-//            brandsPage = brandsRepository.findAll(pageRequest);
-//        }
-//        return new DataResponse<BrandsResponse>(brandsPage.stream().map(BrandsResponse::new).collect(Collectors.toList()), brandsPage);
-//    }
 
 }
