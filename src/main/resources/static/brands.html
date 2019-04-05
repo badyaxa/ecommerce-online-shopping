@@ -21,6 +21,7 @@
 		}
 	</style>
 	<link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -36,23 +37,23 @@
 			<option value="DESC">name Z - A</option>
 		</select>
 		<input type="text" id="page" value="1">
-		<ul>
-			<li>
-				<button id="pagePlus0">1</button>
-			</li>
-			<li>
-				<button id="pagePlus1">2</button>
-			</li>
-			<li>
-				<button id="pagePlus2">3</button>
-			</li>
-			<li>
-				<button id="pagePlus3">4</button>
-			</li>
-			<li>
-				<button id="pagePlus4">5</button>
-			</li>
-		</ul>
+		<!--<ul>-->
+		<!--<li>-->
+		<!--<button id="pagePlus0">1</button>-->
+		<!--</li>-->
+		<!--<li>-->
+		<!--<button id="pagePlus1">2</button>-->
+		<!--</li>-->
+		<!--<li>-->
+		<!--<button id="pagePlus2">3</button>-->
+		<!--</li>-->
+		<!--<li>-->
+		<!--<button id="pagePlus3">4</button>-->
+		<!--</li>-->
+		<!--<li>-->
+		<!--<button id="pagePlus4">5</button>-->
+		<!--</li>-->
+		<!--</ul>-->
 	</div>
 </div>
 <div class="container"></div>
@@ -129,6 +130,32 @@
 	//			$('#page').val(5);
 	//			makeRequest()
 	//		});
+</script>
+
+<!--/////////////search-->
+<script>
+	$(document).ready(function () {
+		$.ajaxSetup({cache: false});
+		$('#search').keyup(function () {
+			$('#result').html('');
+			$('#state').val('');
+			var searchField = $('#search').val();
+			var expression = new RegExp(searchField, "i");
+			$.getJSON('data.json', function (data) {
+				$.each(data, function (key, value) {
+					if (value.name.search(expression) != -1 || value.location.search(expression) != -1) {
+						$('#result').append('<li class="list-group-item link-class"><img src="' + value.image + '" height="40" width="40" class="img-thumbnail" /> ' + value.name + ' | <span class="text-muted">' + value.location + '</span></li>');
+					}
+				});
+			});
+		});
+
+		$('#result').on('click', 'li', function () {
+			var click_text = $(this).text().split('|');
+			$('#search').val($.trim(click_text[0]));
+			$("#result").html('');
+		});
+	});
 </script>
 </body>
 

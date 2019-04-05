@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.in.bibi.ecommerceonlineshopping.service.BrandsService;
 
 @CrossOrigin
-@RestController
-//@Controller
+@Controller
+//@RestController
 @RequestMapping("/admin")
 public class AdminHomeController {
 
@@ -25,14 +25,14 @@ public class AdminHomeController {
 //    @Autowired
 //    private CategoriesService categoriesService;
 
-    @GetMapping
+//    @GetMapping
 //    @RequestMapping("/")
-    public String index() {
-        return "redirect:home";
-    }
+//    public String index() {
+//        return "redirect:index";
+//    }
 
     //    @RequestMapping("/home")
-    @GetMapping("/home")
+    @GetMapping("/")
     public String home() {
         return htmlPagePath + "home";
     }
@@ -97,3 +97,4 @@ public class AdminHomeController {
 //    }
 
 }
+

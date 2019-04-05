@@ -3,14 +3,113 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Main</title>
+    <title>BRANDS</title>
+    <style>
+        .btn-group buttton {
+            background-color: #4CAF50;
+            /* Green background */
+            border: 1px solid green;
+            /* Green border */
+            color: white;
+            /* White text */
+            padding: 10px 24px;
+            /* Some padding */
+            cursor: pointer;
+            /* Pointer/hand icon */
+            float: left;
+            /* Float the buttons side by side */
+        }
+
+        /* Clear floats (clearfix hack) */
+
+        .btn-group:after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .btn-group button:not(:last-child) {
+            border-right: none;
+            /* Prevent double borders */
+        }
+
+        /* Add a background color on hover */
+
+        .btn-group button:hover {
+            background-color: #3e8e41;
+        }
+
+
+        .active, .btn:hover {
+            background-color: #666;
+            color: white;
+        }
+    </style>
     <link rel="stylesheet" href="css/brands.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-</head>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <!--<script src="https://pagination.js.org/dist/2.1.4/pagination.min.js"></script>-->
+
+    <!--<link id="callCss" rel="stylesheet" href="/themes/bootshop/bootstrap.min.css" media="screen"/>-->
+
+
+</head>
 <body>
+
+<h1>Admin BRANDS Page</h1>
+
+<div class="btn-group">
+    <input type="button" onclick="location.href='/';" value="to FRONTPAGE"/>
+    <input type="button" onclick="location.href='brands.html';" value="BRANDS"/>
+    <input type="button" onclick="location.href='categories.html';" value="CATEGORIES"/>
+    <input type="button" onclick="location.href='products.html';" value="PRODUCTS"/>
+    <input type="button" onclick="location.href='users.html';" value="USERS"/>
+    <input type="button" onclick="location.href='orders.html';" value="ORDERS"/>
+    <input type="button-" onclick="location.href='.html';" value=""/>
+
+
+</div>
 <!-- Trigger/Open The Modal -->
 <button id="openModal">Create item</button>
+
+<input type="button" onclick="location.href='/brands.html';" value="BRANDS with FOTOS  + pagination"/>
+<div id="pagination" class="pagination">
+    <select id="size">
+        <option value="6">6</option>
+        <option value="9">9</option>
+        <option value="12">12</option>
+    </select>
+
+    <select id="direction">
+        <option value="ASC">name A - Z</option>
+        <option value="DESC">name Z - A</option>
+    </select>
+
+
+    <input type="text" id="page" value="1" disabled>
+
+
+    <!--<br /><br />-->
+    <!--<div class="container" style="width:900px;">-->
+    <!--<h2 align="center">JSON Live Data Search using Ajax JQuery</h2>-->
+    <!--<h3 align="center">Employee Data</h3>-->
+    <!--<br /><br />-->
+    <!--<div align="center">-->
+    <input type="text" onfocus="this.value=''" value="" name="search" id="search"
+           placeholder="Search by name     (доробити патерн)"
+           class="form-control"/>
+    <!--<input type="reset">-->
+    <button onclick="clearSearch()">CLEAR</button>
+    <!--</div>-->
+
+
+    <ul class="list-group" id="result"></ul>
+    <!--<br />-->
+    <!--</div>-->
+</div>
+<div id="paginat" align="center">
+</div>
 <!-- The Modal -->
 <div id="myModal" class="modal">
     <!-- Modal content -->
@@ -35,32 +134,52 @@
             <h3>Form for new item</h3></div>
     </div>
 </div>
-<table id="persons">
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <!--<th>Age</th>-->
-        <th>Update Button</th>
-        <th>Delete Button</th>
-    </tr>
-</table>
+<table id="persons"></table>
+
+<!--<div class="personscontainer"></div>-->
 <script>
     var mainUrl = "http://localhost/api";
-    getAllPersons();
-    setModalConfiguration();
-    setActionOnCreateBtn();
+    ssssttttaaaarttt();
+
+
+    // makeRequest();
+    $('#page').change(getAllPersons);
+    $('#size').change(getAllPersons);
+    $('#direction').change(getAllPersons);
+    $('#search').change(getAllPersons);
+
+    function ssssttttaaaarttt() {
+
+        getAllPersons();
+        setModalConfiguration();
+        setActionOnCreateBtn();
+
+    }
+
 
     //start when load page PS reload page for triggered http request
 
     function getAllPersons() {
+        console.log(mainUrl + "/brands?direction=" + ($('#direction').val()) + "&page=" + ($('#page').val() - 1) + "&size=" + ($('#size').val()) + "&sortFieldName=id" + "&value=" + ($('#search').val()));
+        if ($('#search').val().length > 0) {
+            // $('#direction').val(1);
+            $('#page').val(1);
+            // $('#size').val(1);
+        }
         $.ajax({
-            url: mainUrl + "/brands?page=0&size=10&sortFieldName=id&direction=DESC"
+            url: mainUrl + "/brands?direction=" + ($('#direction').val()) + "&page=" + ($('#page').val() - 1) + "&size=" + ($('#size').val()) + "&sortFieldName=id" + "&value=" + ($('#search').val())
             , type: "GET"
             , contentType: "application/json"
             , success: function (dataResponse) {
+                console.log(dataResponse);
+                console.log(dataResponse.content);
+
                 setPersonsToTable(dataResponse.content);
+
                 setActionOnUpdateButtons();
                 setActionOnDeleteButtons();
+
+                setPagination(dataResponse.totalPages, dataResponse.totalElements);
             }
             , error: function (error) {
                 alert(error.message);
@@ -68,7 +187,80 @@
         });
     }
 
+    function setPagination(allPages, allElements) {
+        var listPagi = $("#paginat");
+        $("#paginat").html('');
+        if (allPages >= 20) {
+// console.log(allPages/4);
+            for (var i = 1; i <= (allPages / 3); i++) {
+
+                if (i == $('#page').val()) {
+                    listPagi.append('<button class="btn active">' +
+                        i +
+                        '</button>');
+                } else {
+                    listPagi.append('<button onclick="goToPage(' +
+                        i +
+                        ')">' +
+                        i +
+                        '</button>');
+                }
+            }
+            listPagi.append('<button type="button" disabled>' +
+                '........</button><button>' +
+                allPages +
+                '</button>');
+        }
+
+        if (allPages < 20) {
+
+            // $("#paginat").html('');
+
+            for (var i = 1; i < allPages; i++) {
+                if (i == $('#page').val()) {
+                    var listPagi = $("#paginat");
+                    listPagi.append('<button  class="btn active">' +
+                        i +
+                        '</button>');
+                } else {
+                    $("#paginat");
+                    listPagi.append('<button onclick="goToPage(' +
+                        i +
+                        ')">' +
+                        i +
+                        '</button>');
+
+                }
+            }
+        }
+    }
+
+    function goToPage(goPage) {
+        console.log(goPage);
+        $('#page').val(goPage);
+        console.log($('#page').val());
+
+        ssssttttaaaarttt();
+    }
+
+    function clearSearch() {
+        $('#search').val('');
+        ssssttttaaaarttt();
+    }
+
     function setPersonsToTable(persons) {
+        $("#persons").html('' +
+            '<tr>' +
+            '<th>Id</th>' +
+            '<th>Name</th>' +
+            '<th>File Name</th>' +
+            '<th>Update Button</th>' +
+            '<th>Delete Button</th>' +
+            ' </tr>' +
+            '' +
+            '');
+
+
         for (var i = 0; i < persons.length; i++) {
             setPersonToTable(persons[i]);
         }
@@ -79,6 +271,7 @@
         tableOfPersons.append('<tr>'
             + '<td>' + person.id + '</td>'
             + '<td>' + person.name + '</td>'
+            + '<td>image' + person.id + '.png</td>'
             + '<td><button id="openModalup" value="' + person.id + '">Update</button></td>'
             + '<td><button class="button" value="' + person.id + '">Delete</button></td>'
             + '</tr>');
@@ -175,6 +368,69 @@
         };
     }
 </script>
+
+<!--<div class="inner-left preview" id="demo13">-->
+<!--<div class="data-container" style="min-height: 175px; max-height: 285px;">-->
+<!--<ul>-->
+
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="paginationjs paginationjs-big">-->
+<!--<div class="paginationjs-pages">-->
+<!--<ul>-->
+
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--pagination-->
+<!--<script>-->
+<!--$('#demo').pagination({-->
+<!--dataSource: 'mainUrl + "/brands?direction="+($(\'#direction\').val())+"&page="+($(\'#page\').val() - 1)+"&size="+($(\'#size\').val())+"&sortFieldName=id"+ "&value="+($(\'#search\').val())',-->
+<!--locator: 'items',-->
+<!--totalNumberLocator: function (response) {-->
+<!--// you can return totalNumber by analyzing response content-->
+<!--return Math.floor(Math.random() * (1000 - 100)) + 100;-->
+<!--},-->
+<!--pageSize: 20,-->
+<!--ajax: {-->
+<!--beforeSend: function () {-->
+<!--dataContainer.html('Loading data ...');-->
+<!--}-->
+<!--},-->
+<!--callback: function (data, pagination) {-->
+<!--// template method of yourself-->
+<!--var html = template(data);-->
+<!--dataContainer.html(html);-->
+<!--}-->
+<!--})-->
+<!--</script>-->
+<!--/////////////search-->
+<!--<script>-->
+<!--$(document).ready(function(){-->
+<!--$.ajaxSetup({ cache: false });-->
+<!--$('#search').keyup(function(){-->
+<!--$('#result').html('');-->
+<!--$('#state').val('');-->
+<!--var searchField = $('#search').val();-->
+<!--var expression = new RegExp(searchField, "i");-->
+<!--$.getJSON('data.json', function(data) {-->
+<!--$.each(data, function(key, value){-->
+<!--if (value.name.search(expression) != -1 || value.location.search(expression) != -1)-->
+<!--{-->
+<!--$('#result').append('<li class="list-group-item link-class"><img src="'+value.image+'" height="40" width="40" class="img-thumbnail" /> '+value.name+' | <span class="text-muted">'+value.location+'</span></li>');-->
+<!--}-->
+<!--});-->
+<!--});-->
+<!--});-->
+
+<!--$('#result').on('click', 'li', function() {-->
+<!--var click_text = $(this).text().split('|');-->
+<!--$('#search').val($.trim(click_text[0]));-->
+<!--$("#result").html('');-->
+<!--});-->
+<!--});-->
+<!--</script>-->
 </body>
 
 </html>
