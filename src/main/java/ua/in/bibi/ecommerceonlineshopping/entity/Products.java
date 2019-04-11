@@ -43,11 +43,11 @@ private List<Categories> category = new ArrayList<>();
     private String name;// not null
 
 
-    @NotBlank(message = "Product url must not be empty")
-    @Column(name = "url", nullable = false, unique = true)
-//    @NotNull
-    @Size(min = 1, max = 30)
-    private String url;// not null
+//    @NotBlank(message = "Product url must not be empty")
+//    @Column(name = "url", nullable = false, unique = true)
+////    @NotNull
+//    @Size(min = 1, max = 30)
+//    private String url;// not null
 
 
     @OneToMany(mappedBy = "product")
@@ -78,8 +78,9 @@ private List<Categories> category = new ArrayList<>();
 //    private String body;// not null
 
 
-    //    private Boolean visible;// not null default 1
-    private boolean active = true;
+//    //    private Boolean visible;// not null default 1
+//
+//    private boolean active = true;
 
 
 //    private Integer position;// not null

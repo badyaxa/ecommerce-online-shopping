@@ -44,6 +44,8 @@
             background-color: #666;
             color: white;
         }
+
+
     </style>
     <link rel="stylesheet" href="css/brands.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -89,54 +91,68 @@
 
     <input type="text" id="page" value="1" disabled>
 
-
-    <!--<br /><br />-->
-    <!--<div class="container" style="width:900px;">-->
-    <!--<h2 align="center">JSON Live Data Search using Ajax JQuery</h2>-->
-    <!--<h3 align="center">Employee Data</h3>-->
-    <!--<br /><br />-->
-    <!--<div align="center">-->
     <input type="text" onfocus="this.value=''" value="" name="search" id="search"
            placeholder="Search by name     (доробити патерн)"
            class="form-control"/>
-    <!--<input type="reset">-->
+
     <button onclick="clearSearch()">CLEAR</button>
-    <!--</div>-->
 
-
-    <ul class="list-group" id="result"></ul>
-    <!--<br />-->
-    <!--</div>-->
 </div>
-<div id="paginat" align="center">
-</div>
+<div id="paginat" align="center"></div>
 <!-- The Modal -->
 <div id="myModal" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
         <div class="modal-header"><span class="close">&times;</span>
             <h2>Create item</h2></div>
+
         <div class="modal-body">
-            <div>
+            <div id="addButtonToModal">
                 <form>
+                    <input type="text" id="itemId" disabled>
                     <label for="fname">Name</label>
-                    <br>
                     <input type="text" id="fname" name="name" placeholder="Name..">
-                    <br>
+                    <!--<br>-->
                     <!--<label for="lname">Last Name</label><br>-->
                     <!--<input type="text" id="lname" name="lastname" placeholder="Your last name.."><br>-->
                     <!--<label for="age">Age</label><br>-->
                     <!--<input type="number" id="age" name="age" placeholder="Your age.."><br>-->
-                    <input type="button" id="btnCreatePerson" value="Create"></form>
+                    <button id="btnCreatePerson" class="button">Create/Update</button>
+                </form>
             </div>
         </div>
         <div class="modal-footer">
             <h3>Form for new item</h3></div>
     </div>
 </div>
-<table id="persons"></table>
+<!--<div id="updateModal" class="modal">-->
+<!--&lt;!&ndash; Modal content &ndash;&gt;-->
+<!--<div class="modal-content">-->
+<!--<div class="modal-header"><span class="closeUp">x</span>-->
+<!--<h2>Update item</h2></div>-->
 
-<!--<div class="personscontainer"></div>-->
+<!--<div class="modal-body">-->
+<!--<div>-->
+<!--<form>-->
+<!--<input type="text" id = "itemId" disabled>-->
+<!--<label for="fname">Name</label>-->
+<!--<input type="text" id="fname" name="name" placeholder="Name..">-->
+<!--&lt;!&ndash;<br>&ndash;&gt;-->
+<!--&lt;!&ndash;<label for="lname">Last Name</label><br>&ndash;&gt;-->
+<!--&lt;!&ndash;<input type="text" id="lname" name="lastname" placeholder="Your last name.."><br>&ndash;&gt;-->
+<!--&lt;!&ndash;<label for="age">Age</label><br>&ndash;&gt;-->
+<!--&lt;!&ndash;<input type="number" id="age" name="age" placeholder="Your age.."><br>&ndash;&gt;-->
+<!--<input type="button" id="btnCreatePerson" value="Create"></form>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--<h3>Form for edit item</h3></div>-->
+<!--</div>-->
+<!--</div>-->
+
+<table id="items"></table>
+
+<!--<div class="itemscontainer"></div>-->
 <script>
     var mainUrl = "http://localhost/api";
     ssssttttaaaarttt();
@@ -160,7 +176,6 @@
     //start when load page PS reload page for triggered http request
 
     function getAllPersons() {
-        console.log(mainUrl + "/brands?direction=" + ($('#direction').val()) + "&page=" + ($('#page').val() - 1) + "&size=" + ($('#size').val()) + "&sortFieldName=id" + "&value=" + ($('#search').val()));
         if ($('#search').val().length > 0) {
             // $('#direction').val(1);
             $('#page').val(1);
@@ -171,8 +186,6 @@
             , type: "GET"
             , contentType: "application/json"
             , success: function (dataResponse) {
-                console.log(dataResponse);
-                console.log(dataResponse.content);
 
                 setPersonsToTable(dataResponse.content);
 
@@ -182,7 +195,7 @@
                 setPagination(dataResponse.totalPages, dataResponse.totalElements);
             }
             , error: function (error) {
-                alert(error.message);
+                alert("197" + error.message);
             }
         });
     }
@@ -236,9 +249,7 @@
     }
 
     function goToPage(goPage) {
-        console.log(goPage);
         $('#page').val(goPage);
-        console.log($('#page').val());
 
         ssssttttaaaarttt();
     }
@@ -248,8 +259,8 @@
         ssssttttaaaarttt();
     }
 
-    function setPersonsToTable(persons) {
-        $("#persons").html('' +
+    function setPersonsToTable(items) {
+        $("#items").html('' +
             '<tr>' +
             '<th>Id</th>' +
             '<th>Name</th>' +
@@ -261,19 +272,20 @@
             '');
 
 
-        for (var i = 0; i < persons.length; i++) {
-            setPersonToTable(persons[i]);
+        for (var i = 0; i < items.length; i++) {
+            setPersonToTable(items[i]);
         }
     }
 
-    function setPersonToTable(person) {
-        var tableOfPersons = $("#persons");
+    function setPersonToTable(item) {
+        var tableOfPersons = $("#items");
         tableOfPersons.append('<tr>'
-            + '<td>' + person.id + '</td>'
-            + '<td>' + person.name + '</td>'
-            + '<td>image' + person.id + '.png</td>'
-            + '<td><button id="openModalup" value="' + person.id + '">Update</button></td>'
-            + '<td><button class="button" value="' + person.id + '">Delete</button></td>'
+            + '<input type="text" id = "itemId" hidden>'
+            + '<td>' + item.id + '</td>'
+            + '<td>' + item.name + '</td>'
+            + '<td><img src="/img/image' + item.id + '.png" alt="' + item.name + '" height="35" width="35"></td>'
+            + '<td><button id="btnCreatePerson"    class="update-button" value="' + item.id + '">Update</button></td>'
+            + '<td><button class="button" value="' + item.id + '">Delete item</button></td>'
             + '</tr>');
     }
 
@@ -285,10 +297,11 @@
                     url: mainUrl + "/brands?id=" + $(this).val()
                     , type: "DELETE"
                     , success: function (data) {
+                        alert("299" + 'record has been deleted');
                         location.reload();
                     }
                     , error: function (error) {
-                        alert(error.message);
+                        console.log("303" + error.message);
                     }
                 });
             })
@@ -297,51 +310,113 @@
 
     //update process
     function setActionOnUpdateButtons() {
-        $("#update-button").click(function () {
-            var name = $("#fname").val();
+        $(".update-button").each(function (index) {
             $(this).click(function () {
                 $.ajax({
-                    url: mainUrl + "/brands?id=" + $(this).val()
-                    , type: "PUT"
-                    , contentType: "application/json"
-                    , data: {"name": "eeeeeeeeeee" + $(this).val()}
+                    url: mainUrl + "/brands/" + $(this).val()
+                    , type: "GET"
                     , success: function (data) {
-                        location.reload();
+                        // alert(data.id);
+                        // alert(data.name);
+                        var modal = document.getElementById('myModal');
+
+                        var name = $("#fname").val(data.name);
+                        var itemId = $("#itemId").val(data.id);
+                        modal.style.display = "block";
+
+                        // location.reload();
                     }
                     , error: function (error) {
-                        alert(error.message);
+                        alert("329" + error.message);
                     }
+
+
+                    // $("#items").html('' +
+                    //     '<input id="item-id" style="display: none">' +
+                    //     '<input type="text" id="item-name" placeholder="Name"><br>' +
+                    //     '<button id="update-button">Update</button>' +
+                    //     '');
+                    //
+                    //
+                    // for (var i = 0; i < items.length; i++) {
+                    //     setPersonToTable(items[i]);
+                    // }
+
+
                 });
             })
         })
     }
 
     function setActionOnCreateBtn() {
+
         $("#btnCreatePerson").click(function () {
-            var name = $("#fname").val();
-            //				var lastName = $("#lname").val();
-            //				var age = $("#age").val();
-            //            if (firstName != null && lastName != null && age != null) {
-            var newPerson = {
-                "name": name
-                //					, "lastName": lastName
-                //					, "age": age
-            };
-            $.ajax({
-                url: mainUrl + "/brands"
-                , type: "POST"
-                , contentType: "application/json"
-                , data: JSON.stringify(newPerson)
-                , success: function (data) {
-                    location.reload();
-                }
-                , error: function (error) {
-                    alert(error.message);
-                }
-            });
-            //            } else {
-            //                alert("Всі поля повинні бути заповнені")
-            //            }
+
+            var buttonValue = $("#itemId").val();
+
+            if (buttonValue == 0) {
+
+                console.log("CREATE");
+                // console.log($("#itemId").val());
+                var name = $("#fname").val();
+                // var itemId = $("#itemId").val();
+                //				var lastName = $("#lname").val();
+                //				var age = $("#age").val();
+                // console.log("name=" + name);
+                // console.log($("#itemId").val());
+                var newPerson = {
+                    "name": name
+                    //					, "lastName": lastName
+                    //					, "age": age
+                };
+                $.ajax({
+                    url: mainUrl + "/brands"
+                    , type: "POST"
+                    , contentType: "application/json"
+                    , data: JSON.stringify(newPerson)
+                    , success: function (data) {
+                        // alert(data);
+
+                        // console.log(data);
+                        location.reload();
+                    }
+                    , error: function (error) {
+                        console.log(error.message);
+                        // alert(error.message);
+                    }
+                });
+            } else {
+                console.log("UPDATE");
+                // console.log($(".itemId").val());
+                var name = $("#fname").val();
+                var itemId = $("#itemId").val();
+                //				var lastName = $("#lname").val();
+                //				var age = $("#age").val();
+                // console.log("name=" + name);
+                // console.log($("#itemId").val());
+                var newPerson = {
+                    "name": name
+                    // , "id": itemId
+                    //					, "age": age
+                };
+                $.ajax({
+                    url: mainUrl + "/brands?id=" + itemId
+                    , type: "PUT"
+                    , contentType: "application/json"
+                    , data: JSON.stringify(newPerson)
+                    , success: function (data) {
+                        // alert(data);
+
+                        // console.log(data);
+                        // location.reload();
+                        ssssttttaaaarttt();
+                    }
+                    , error: function (error) {
+                        console.log(error.message);
+                        // alert(error.message);
+                    }
+                });
+            }
         });
     }
 
@@ -354,83 +429,28 @@
         var span = document.getElementsByClassName("close")[0];
         // When the user clicks the button, open the modal
         btn.onclick = function () {
+
+            $("#fname").val('');
+            $("#itemId").val('');
+
             modal.style.display = "block";
         };
-        // When the user clicks on <span> (x), close the modal
+
+        //When the user clicks on <span> (x), close the modal
         span.onclick = function () {
             modal.style.display = "none";
+
         };
+
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         };
+
     }
+
 </script>
-
-<!--<div class="inner-left preview" id="demo13">-->
-<!--<div class="data-container" style="min-height: 175px; max-height: 285px;">-->
-<!--<ul>-->
-
-<!--</ul>-->
-<!--</div>-->
-<!--<div class="paginationjs paginationjs-big">-->
-<!--<div class="paginationjs-pages">-->
-<!--<ul>-->
-
-<!--</ul>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--pagination-->
-<!--<script>-->
-<!--$('#demo').pagination({-->
-<!--dataSource: 'mainUrl + "/brands?direction="+($(\'#direction\').val())+"&page="+($(\'#page\').val() - 1)+"&size="+($(\'#size\').val())+"&sortFieldName=id"+ "&value="+($(\'#search\').val())',-->
-<!--locator: 'items',-->
-<!--totalNumberLocator: function (response) {-->
-<!--// you can return totalNumber by analyzing response content-->
-<!--return Math.floor(Math.random() * (1000 - 100)) + 100;-->
-<!--},-->
-<!--pageSize: 20,-->
-<!--ajax: {-->
-<!--beforeSend: function () {-->
-<!--dataContainer.html('Loading data ...');-->
-<!--}-->
-<!--},-->
-<!--callback: function (data, pagination) {-->
-<!--// template method of yourself-->
-<!--var html = template(data);-->
-<!--dataContainer.html(html);-->
-<!--}-->
-<!--})-->
-<!--</script>-->
-<!--/////////////search-->
-<!--<script>-->
-<!--$(document).ready(function(){-->
-<!--$.ajaxSetup({ cache: false });-->
-<!--$('#search').keyup(function(){-->
-<!--$('#result').html('');-->
-<!--$('#state').val('');-->
-<!--var searchField = $('#search').val();-->
-<!--var expression = new RegExp(searchField, "i");-->
-<!--$.getJSON('data.json', function(data) {-->
-<!--$.each(data, function(key, value){-->
-<!--if (value.name.search(expression) != -1 || value.location.search(expression) != -1)-->
-<!--{-->
-<!--$('#result').append('<li class="list-group-item link-class"><img src="'+value.image+'" height="40" width="40" class="img-thumbnail" /> '+value.name+' | <span class="text-muted">'+value.location+'</span></li>');-->
-<!--}-->
-<!--});-->
-<!--});-->
-<!--});-->
-
-<!--$('#result').on('click', 'li', function() {-->
-<!--var click_text = $(this).text().split('|');-->
-<!--$('#search').val($.trim(click_text[0]));-->
-<!--$("#result").html('');-->
-<!--});-->
-<!--});-->
-<!--</script>-->
 </body>
-
 </html>

@@ -312,11 +312,11 @@
 
     function getAllPersons() {
         $.ajax({
-            url: apiUrl + "/products?direction=ASC&page=0&size=6&sortFieldName=name",
+            url: apiUrl + "/product?direction=ASC&page=0&size=6&sortFieldName=name",
             type: "GET",
             contentType: "application/json",
             success: function (dataResponse) {
-                setPersonsToTable(dataResponse.data);
+                setPersonsToTable(dataResponse.content);
                 // setActionOnDeleteButtons();
             },
             error: function (error) {
@@ -338,9 +338,13 @@
             + person.id
             + '.html"><img src="themes/images/products/3.jpg" alt=""/></a><div class="caption"><h5>'
             + person.name
-            + '</h5><p> Description of '
+            + '</h5><p>   id=> '
+            + person.id
+            + ',  brandName=>  '
             + person.brandName
-            + '. I\'m a paragraph. Click here</p><h4 style="text-align:center"><a class="btn" href="product_details'
+            + ',  categoryName=> '
+            + person.categoryName
+            + '</p><h4 style="text-align:center"><a class="btn" href="product_details'
             + person.id
             + '.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="product_details'
             + person.id

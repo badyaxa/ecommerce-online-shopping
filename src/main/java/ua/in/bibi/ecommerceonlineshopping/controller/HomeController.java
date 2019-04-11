@@ -16,8 +16,8 @@ public class HomeController {
 //        return "It is ecommerce online shop";
 //    }
 
-    @GetMapping
-//    @RequestMapping("/")
+    //    @GetMapping
+    @RequestMapping("/")
     public String index() {
         return "redirect:index";
     }
